@@ -1,5 +1,10 @@
 package com.kateproject.kateapp
 
+import com.google.gson.GsonBuilder
+import okhttp3.*
+import java.io.IOException
+import java.util.concurrent.CountDownLatch
+
 enum class MessageType {
     BUG, KATE, ARTICLE
 }
@@ -10,13 +15,35 @@ enum class ArticleType {
 
 class Communicator
 {
-    fun LoadArticles(Count: Int,diff: Int=0): List<Article>
+    fun LoadArticles(Count: Int,diff: Int=0):List<Article>
     {
-        val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"
+        val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page="+Count
+        val request = Request.Builder().url(url).build()
+        val client = OkHttpClient()
+        var articles: List<Article> = emptyList()
 
-        val Articles: List<Article>
-        Articles = emptyList() //ideiglenesen
-        return Articles
+        val countDownLatch = CountDownLatch(1)
+        client.newCall(request).enqueue(object : Callback
+        {
+            override fun onFailure(call: Call, e: IOException) {
+               /* Snackbar.make(view, "Loading failed, try again", Snackbar.LENGTH_SHORT)
+                    .show()*/
+                println("JSON download Error: $e")
+                countDownLatch.countDown()
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                val body = response.body?.string()
+                println(body)
+
+                val gsonInstance = GsonBuilder().create()
+                articles = gsonInstance.fromJson(body, Array<Article>::class.java).toList()
+                for (x in 0..(articles.count()-1)) { articles[x].authorName=""}
+                countDownLatch.countDown()
+            }
+        })
+        countDownLatch.await()
+        return articles
     }
 //
 //  fun SearchArticles(): List<Article>

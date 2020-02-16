@@ -1,7 +1,7 @@
 package com.kateproject.kateapp
 
-
-import android.content.Context
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +20,18 @@ class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = articles[position]
-        holder.view.textViewTitle.text = article.title.rendered
-        holder.view.textViewExc.text = article.excerpt.rendered
-        holder.view.textViewAut.text = article.authorName
-        holder.view.textViewDate.text = article.date
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            holder.view.textViewTitle.text = Html.fromHtml(article.title.rendered, Html.FROM_HTML_MODE_COMPACT)
+            holder.view.textViewExc.text = Html.fromHtml(article.excerpt.rendered, Html.FROM_HTML_MODE_COMPACT)
+            holder.view.textViewAut.text = Html.fromHtml(article.authorName, Html.FROM_HTML_MODE_COMPACT)
+            holder.view.textViewDate.text = Html.fromHtml(article.date, Html.FROM_HTML_MODE_COMPACT)
+        } else {
+            holder.view.textViewTitle.text=Html.fromHtml(article.title.rendered)
+            holder.view.textViewExc.text = Html.fromHtml(article.excerpt.rendered)
+            holder.view.textViewAut.text = Html.fromHtml(article.authorName)
+            holder.view.textViewDate.text = Html.fromHtml(article.date)
+        }
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)

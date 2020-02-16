@@ -1,6 +1,6 @@
 package com.kateproject.kateapp
 
-class Article(
+data class Article(
     val id: Int,            //cikk ID
     val date: String,       //kiadás dátuma
     val link: String,       //URL
@@ -8,8 +8,9 @@ class Article(
     val content: Packed,    //tartalom
     val excerpt: Packed,    //összefoglaló
     val author: Int,        //szerző kód
-    val authorName: String  //szerzőnév
+    var authorName: String="noAuthor"  //szerzőnév
 )
 
-class Packed(val rendered: String)
-        //erre azért van szükség, hogy a JSON-t megfelelően kezeljük
+data class Packed(val rendered: String)
+//erre azért van szükség, hogy a JSON-t megfelelően kezeljük
+

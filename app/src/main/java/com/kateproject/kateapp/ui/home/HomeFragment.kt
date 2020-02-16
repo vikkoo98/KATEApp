@@ -9,9 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.kateproject.kateapp.R
-import com.kateproject.kateapp.RecyclerAdapter
-import com.kateproject.kateapp.recyclerAdapter
+import com.kateproject.kateapp.*
 
 class HomeFragment : Fragment() {
 
@@ -25,11 +23,11 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val reciclerView: RecyclerView = root.findViewById(R.id.article_rec_view)
+        val recyclerView: RecyclerView = root.findViewById(R.id.article_rec_view)
         homeViewModel.text.observe(this, Observer {
-            reciclerView.apply {
+            recyclerView.apply {
                 layoutManager = LinearLayoutManager(activity)
-                reciclerView.adapter = RecyclerAdapter(articles, context)
+                recyclerView.adapter = RecyclerAdapter(it)
             }
 
         })

@@ -45,7 +45,13 @@ class Communicator
         countDownLatch.await()
         return articles
     }
+//fun LoadAuthors(): List<Author>
+//    {
+//        val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"
 //
+//        val Authors: List<Author>
+//        return Authors
+//    }
 //  fun SearchArticles(): List<Article>
 //  {
 //      val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"

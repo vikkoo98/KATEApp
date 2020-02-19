@@ -1,10 +1,12 @@
 package com.kateproject.kateapp
 
+import android.content.Intent
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.row_layout1.view.*
 
@@ -31,6 +33,14 @@ class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapte
             holder.view.textViewExc.text = Html.fromHtml(article.excerpt.rendered)
             holder.view.textViewAut.text = Html.fromHtml(article.authorName)
             holder.view.textViewDate.text = Html.fromHtml(article.date)
+        }
+        holder.view.setOnClickListener {
+            val intent = Intent(holder.view.context, ArticleActivity::class.java)
+            intent.putExtra("title", article.title.rendered)
+            intent.putExtra("author", article.authorName)
+            intent.putExtra("content", article.content.rendered)
+            intent.putExtra("date", article.date)
+            holder.view.context.startActivity(intent)
         }
     }
 

@@ -13,6 +13,9 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.get
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +31,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val comm = Communicator()
-        gArticles = comm.LoadArticles(20)
+        val articles = comm.LoadArticles(20)
+        gArticles = articles
         val authors = comm.LoadAuthors()
         for (x in 0 until gArticles.count()-1)
             for (y in 0 until authors.count()-1)
@@ -51,21 +55,12 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-       /* navView.setNavigationItemSelectedListener {
-            when (it.itemId)
-            {
-                R.id.nav_home -> {
-                    val bundle = bundleOf("articles" to articles)
-                    findNavController(R.id.nav_host_fragment).navigate(R.id.nav_home, bundle)
-                }
-            }
-            true
-        }*/
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
+        //menuInflater.inflate(R.menu.main, menu)
         return true
     }
 

@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kateproject.kateapp.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
@@ -28,6 +30,27 @@ class HomeFragment : Fragment() {
             recyclerView.apply {
                 layoutManager = LinearLayoutManager(activity)
                 recyclerView.adapter = RecyclerAdapter(it)
+
+                //kereső a cikkekben
+                val comm = Communicator()
+                searchBar.setOnQueryTextListener(object: SearchView.OnQueryTextListener,
+                    android.widget.SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        println(query)
+                        if (query != null)
+                        {
+                            val articles = comm.SearchArticles(it,query)
+                            recyclerView.adapter = RecyclerAdapter(articles)
+                        }
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        if (newText=="")
+                            recyclerView.adapter = RecyclerAdapter(it)
+                        return true
+                    }
+                })
             }
 
         })

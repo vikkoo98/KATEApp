@@ -8,6 +8,8 @@ import org.sufficientlysecure.htmltextview.HtmlTextView
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Build
+import kotlinx.android.synthetic.main.row_layout1.view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 
 
@@ -21,10 +23,17 @@ class ArticleActivity : AppCompatActivity() {
         val date = intent.getStringExtra("date")
         setContentView(R.layout.activity_article)
 
-        titleText.text=title
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+        {
+            titleText.text = Html.fromHtml(title,Html.FROM_HTML_MODE_COMPACT)
+        }
+        else
+        {
+            titleText.text = Html.fromHtml(title)
+        }
+
         authortext.text=author
-        //contentText.text=content
-        dateText.text=date
+        dateText.text=date.replaceAfter('T',"").replace('-',' ').replace('T',' ')
 
 
 

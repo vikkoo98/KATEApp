@@ -8,12 +8,11 @@
     <ImageView
         android:id="@+id/backgorundImage"
         android:layout_width="0dp"
-        android:layout_height="114dp"
+        android:layout_height="132dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/darker_gray" />
@@ -22,7 +21,7 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/backgorundImage"
         app:layout_constraintStart_toStartOf="@+id/backgorundImage"
         app:layout_constraintTop_toTopOf="@+id/backgorundImage"
@@ -30,42 +29,54 @@
 
     <TextView
         android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Title"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/backgorundImage"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewExc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:text="Excerpt"
+        app:layout_constraintEnd_toEndOf="@+id/backgorundImage"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
     <TextView
         android:id="@+id/textViewDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Date"
+        android:textAlignment="viewEnd"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/backgorundImage"
-        app:layout_constraintEnd_toEndOf="@+id/backgorundImage" />
+        app:layout_constraintEnd_toEndOf="@+id/backgorundImage"
+        app:layout_constraintStart_toEndOf="@+id/textViewAut"
+        app:layout_constraintTop_toBottomOf="@+id/textViewExc" />
 
     <TextView
         android:id="@+id/textViewAut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="131dp"
+        android:layout_height="20dp"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="Author"
         app:layout_constraintBottom_toBottomOf="@+id/backgorundImage"
-        app:layout_constraintStart_toEndOf="@+id/imageView3" />
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/textViewExc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

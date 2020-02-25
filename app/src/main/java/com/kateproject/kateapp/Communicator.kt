@@ -74,13 +74,19 @@ fun LoadAuthors(count:Int = 50): List<Author>
 
         return authors
     }
-//  fun SearchArticles(): List<Article>
-//  {
-//      val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"
-//
-//      val Articles: List<Article>
-//      return Articles
-//  }
+    fun SearchArticles(sourceArticles: List<Article>, query: String): List<Article>
+    {
+        val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"
+        var articles = mutableListOf<Article>()
+        for (x in 0 until sourceArticles.count()-1)
+        {
+            if (sourceArticles[x].title.rendered.contains(query,true))
+            {
+                articles.add(sourceArticles[x])
+            }
+        }
+        return articles
+    }
 //  fun FilterArticles(Type: ArticleType): List<Article>
 //  {
 //      val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"

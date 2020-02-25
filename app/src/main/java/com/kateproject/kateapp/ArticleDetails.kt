@@ -11,6 +11,11 @@ data class Article(
     var authorName: String="noAuthor"  //szerzőnév
 )
 
+data class Author(
+    val id: Int,
+    val name: String
+)
+
 data class Packed(val rendered: String)
 //erre azért van szükség, hogy a JSON-t megfelelően kezeljük
 

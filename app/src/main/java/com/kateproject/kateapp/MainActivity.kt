@@ -29,7 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         val comm = Communicator()
         gArticles = comm.LoadArticles(20)
-
+        val authors = comm.LoadAuthors()
+        for (x in 0 until gArticles.count())
+            for (y in 0 until authors.count())
+                {
+                    if (gArticles[x].author == authors[y].id)
+                            gArticles[x].authorName = authors[y].name
+                }
 
         // a kereső: -ez nem biztos hogy így lesz
         val fab: FloatingActionButton = findViewById(R.id.fab)

@@ -1,13 +1,12 @@
-package com.kateproject.kateapp.ui.tools
-
+package com.kateproject.kateapp.ui.settings
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ToolsViewModel : ViewModel() {
+class SettingsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is tools Fragment"
+        value = "This is settings Fragment"
     }
     val text: LiveData<String> = _text
 }

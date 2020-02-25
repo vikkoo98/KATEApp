@@ -30,21 +30,12 @@ class MainActivity : AppCompatActivity() {
         val comm = Communicator()
         gArticles = comm.LoadArticles(20)
         val authors = comm.LoadAuthors()
-        for (x in 0 until gArticles.count())
-            for (y in 0 until authors.count())
+        for (x in 0 until gArticles.count()-1)
+            for (y in 0 until authors.count()-1)
                 {
                     if (gArticles[x].author == authors[y].id)
                             gArticles[x].authorName = authors[y].name
                 }
-
-        // a kereső: -ez nem biztos hogy így lesz
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
-
-
 
         //ez a menüsávnak a definiálása:
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -54,8 +45,8 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send
+                R.id.nav_home, R.id.nav_filter, R.id.nav_archive,
+                R.id.nav_tools
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

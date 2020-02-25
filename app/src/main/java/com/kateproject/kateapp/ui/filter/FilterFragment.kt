@@ -1,4 +1,4 @@
-package com.kateproject.kateapp.ui.gallery
+package com.kateproject.kateapp.ui.filter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kateproject.kateapp.R
 
-class GalleryFragment : Fragment() {
+class FilterFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var filterViewModel: FilterViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-            ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(this, Observer {
+        filterViewModel =
+            ViewModelProviders.of(this).get(FilterViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_filter, container, false)
+        val textView: TextView = root.findViewById(R.id.text_filter)
+        filterViewModel.text.observe(this, Observer {
             textView.text = it
         })
         return root

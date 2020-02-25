@@ -17,7 +17,7 @@ class Communicator
 {
     fun LoadArticles(Count: Int,diff: Int=0):List<Article>
     {
-        val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page="+Count
+        val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=$Count"
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
         var articles: List<Article> = emptyList()

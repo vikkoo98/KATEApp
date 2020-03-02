@@ -1,6 +1,7 @@
 package com.kateproject.kateapp
 
 data class Article(
+    var type: String,
     val id: Int,            //cikk ID
     val date: String,       //kiadás dátuma
     val link: String,       //URL

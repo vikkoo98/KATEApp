@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.kateproject.kateapp.R
+import kotlinx.android.synthetic.main.fragment_archive.*
+import kotlinx.android.synthetic.main.fragment_filter.*
 
 class ArchiveFragment : Fragment() {
 
@@ -21,9 +23,10 @@ class ArchiveFragment : Fragment() {
         archiveViewModel =
             ViewModelProviders.of(this).get(ArchiveViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_archive, container, false)
-        val textView: TextView = root.findViewById(R.id.text_archive)
         archiveViewModel.text.observe(this, Observer {
-            textView.text = it
+            mWebview.loadUrl("https://issuu.com/bme-gepeszmernoki-kar")
+
+
         })
         return root
     }

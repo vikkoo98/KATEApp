@@ -38,15 +38,25 @@ class Communicator
 
                 val gsonInstance = GsonBuilder().create()
                 articles = gsonInstance.fromJson(body, Array<Article>::class.java).toList()
-                for (x in 0 until articles.count()) { articles[x].authorName=""}
+                for (x in 0 until articles.count())
+                {
+                    if(articles[x].title.rendered.contains("interjú", ignoreCase = true)){
+                        articles[x].type = "interju"
+                    }
+                    else{
+                        articles[x].type = "cikk"
+                    }
+                    articles[x].authorName=""
+                }
                 countDownLatch.countDown()
             }
         })
         countDownLatch.await()
         return articles
     }
-fun LoadAuthors(count:Int = 50): List<Author>
+    fun LoadAuthors(count:Int = 50): List<Author>
     {
+
         val url = "http://www.kate.hu/wp-json/wp/v2/users?per_page=$count"
         var authors: List<Author> = emptyList()
         val request = Request.Builder().url(url).build()
@@ -87,13 +97,14 @@ fun LoadAuthors(count:Int = 50): List<Author>
         }
         return articles
     }
-//  fun FilterArticles(Type: ArticleType): List<Article>
-//  {
-//      val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"
-//
-//      val Articles: List<Article>
-//      return Articles
-//  }
+  fun FilterArticles(sourceArticles: List<Article>, type: String): List<Article>
+  {
+      var articles = mutableListOf<Article>()
+
+
+
+      return articles
+  }
 
     fun GetArchive(Count: Int,diff: Int=0)
     {

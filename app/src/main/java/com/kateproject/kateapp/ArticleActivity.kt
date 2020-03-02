@@ -33,7 +33,8 @@ class ArticleActivity : AppCompatActivity() {
         }
 
         authortext.text=author
-        dateText.text=date.replaceAfter('T',"").replace('-',' ').replace('T',' ')
+        if (date != null)
+            dateText.text=date.replaceAfter('T',"").replace('-',' ').replace('T',' ')
 
 
 
@@ -46,7 +47,7 @@ class ArticleActivity : AppCompatActivity() {
             }*/
 
             val htmlTextView = findViewById<HtmlTextView>(R.id.contentText)
-            htmlTextView.setHtml(content, HtmlHttpImageGetter(htmlTextView))
+            htmlTextView.setHtml(content, HtmlHttpImageGetter(htmlTextView,null, true))
         }
     }
 }

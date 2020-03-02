@@ -32,25 +32,19 @@ class SettingsFragment : Fragment() {
         settingsViewModel.text.observe(this, Observer {
 
             //switchek
-                switch1.setOnCheckedChangeListener(object: CompoundButton.OnCheckedChangeListener {
-                    override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-                        if (!isChecked)
-                        {
-                            switch2.isChecked=false
-                            switch2.isEnabled=false
-                            switch3.isChecked=false
-                            switch3.isEnabled=false
-                        }
-                        else
-                        {
-                            switch2.isChecked=true
-                            switch2.isEnabled=true
-                            switch3.isChecked=true
-                            switch3.isEnabled=true
-                        }
+                switch1.setOnCheckedChangeListener { _, isChecked ->
+                    if (!isChecked) {
+                        switch2.isChecked=false
+                        switch2.isEnabled=false
+                        switch3.isChecked=false
+                        switch3.isEnabled=false
+                    } else {
+                        switch2.isChecked=true
+                        switch2.isEnabled=true
+                        switch3.isChecked=true
+                        switch3.isEnabled=true
                     }
-
-                })
+                }
 
             articleNum.setText(20.toString())
             //a szövegeset a csúszkába

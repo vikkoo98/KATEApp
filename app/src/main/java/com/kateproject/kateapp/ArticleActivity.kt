@@ -39,7 +39,7 @@ class ArticleActivity : AppCompatActivity() {
 
 
         if (content !=  null)
-        {/*
+        {/* proba commit
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 contentText.text = Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT)
             } else {

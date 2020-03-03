@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 class FilterViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is filter Fragment"
+        value = "Jelöld be azokat a típusokat, amik érdekelnek"
     }
     val text: LiveData<String> = _text
 }

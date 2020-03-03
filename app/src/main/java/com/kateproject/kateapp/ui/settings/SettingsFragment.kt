@@ -6,16 +6,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.SeekBar
-import android.widget.Switch
-import android.widget.TextView
-import androidx.core.text.set
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.kateproject.kateapp.Communicator
 import com.kateproject.kateapp.R
 import kotlinx.android.synthetic.main.fragment_settings.*
+import com.kateproject.kateapp.MainActivity.Companion.settings
 
 class SettingsFragment : Fragment() {
 
@@ -28,8 +26,13 @@ class SettingsFragment : Fragment() {
     ): View? {
         settingsViewModel = ViewModelProviders.of(this).get(SettingsViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_settings, container, false)
-        //val textView: TextView = root.findViewById(R.id.text_settings)
+
         settingsViewModel.text.observe(this, Observer {
+
+            //létrehozáskor a jelenlegi állapot betöltése
+            articleNum.setText(settings.arNum.toString())
+            articleNumBar.progress=settings.arNum
+            switch2.isChecked=settings.arNot
 
             //switchek
                 switch1.setOnCheckedChangeListener { _, isChecked ->
@@ -46,7 +49,6 @@ class SettingsFragment : Fragment() {
                     }
                 }
 
-            articleNum.setText(20.toString())
             //a szövegeset a csúszkába
             articleNum.addTextChangedListener(object: TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
@@ -73,8 +75,15 @@ class SettingsFragment : Fragment() {
                 }
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {}
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
-
             })
+
+            val comm = Communicator()
+            saveButton.setOnClickListener {
+                settings.arNot=switch2.isChecked
+                settings.arNum=articleNumBar.progress
+                comm.LoadArticles(settings.arNum)
+                println(settings.arNum)
+            }
         })
         return root
     }

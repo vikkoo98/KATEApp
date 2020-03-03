@@ -1,8 +1,6 @@
 package com.kateproject.kateapp
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -13,14 +11,13 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import androidx.appcompat.widget.SearchView
-import androidx.core.view.get
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
 
     companion object {
         var gArticles: List<Article> = emptyList()
+        var settings = Settings()
+
     }
     private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,11 +28,13 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val comm = Communicator()
-        val articles = comm.LoadArticles(20)
+        val articles = comm.LoadArticles(settings.arNum, forceLoad = true)
         gArticles = articles
         val authors = comm.LoadAuthors()
-        for (x in 0 until gArticles.count()-1)
-            for (y in 0 until authors.count()-1)
+
+        //írónevek és id-k összefésülése
+        for (x in 0 until gArticles.count())
+            for (y in 0 until authors.count())
                 {
                     if (gArticles[x].author == authors[y].id)
                             gArticles[x].authorName = authors[y].name
@@ -69,3 +68,15 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
+
+data class Settings(
+    var arNot: Boolean = true,         //cikk értesítések on/off
+    //egyéb értesítések ide...
+
+    var articleFilter: Boolean = true,  //cikkek szűrője
+    var interviewFilter: Boolean = true,//interjú szűrő
+    var adFilter: Boolean = true,       //hirdetés szűrő
+    //egyéb szűrő pontok ide
+
+    var arNum: Int = 20              //betöltendő cikkek száma
+)

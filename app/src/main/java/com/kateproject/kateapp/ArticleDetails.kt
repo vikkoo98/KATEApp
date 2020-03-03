@@ -1,7 +1,9 @@
 package com.kateproject.kateapp
 
+enum class ArticleType {
+    IRODALOM, CIKK, HIR, INTERJU
+}
 data class Article(
-    var type: String,
     val id: Int,            //cikk ID
     val date: String,       //kiadás dátuma
     val link: String,       //URL
@@ -9,7 +11,8 @@ data class Article(
     val content: Packed,    //tartalom
     val excerpt: Packed,    //összefoglaló
     val author: Int,        //szerző kód
-    var authorName: String="noAuthor"  //szerzőnév
+    var authorName: String = "noAuthor",  //szerzőnév
+    var type: ArticleType = ArticleType.CIKK //cikk típusa
 )
 
 data class Author(

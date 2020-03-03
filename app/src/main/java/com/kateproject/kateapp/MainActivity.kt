@@ -70,6 +70,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 data class Settings(
+    var allNot: Boolean = true,
     var arNot: Boolean = true,         //cikk értesítések on/off
     //egyéb értesítések ide...
 

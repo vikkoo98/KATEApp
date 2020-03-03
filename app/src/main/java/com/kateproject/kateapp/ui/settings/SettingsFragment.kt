@@ -32,6 +32,7 @@ class SettingsFragment : Fragment() {
             //létrehozáskor a jelenlegi állapot betöltése
             articleNum.setText(settings.arNum.toString())
             articleNumBar.progress=settings.arNum
+            switch1.isChecked=settings.allNot
             switch2.isChecked=settings.arNot
 
             //switchek
@@ -79,6 +80,7 @@ class SettingsFragment : Fragment() {
 
             val comm = Communicator()
             saveButton.setOnClickListener {
+                settings.allNot=switch1.isChecked
                 settings.arNot=switch2.isChecked
                 settings.arNum=articleNumBar.progress
                 comm.LoadArticles(settings.arNum)

@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         //notificationTask.sendNotification("Hey you", "yes, you")
 
     //írónevek és id-k összefésülése
-        for (x in 0 until gArticles.count())
-            for (y in 0 until authors.count())
+        for (x in gArticles.indices)
+            for (y in authors.indices)
                 {
                     if (gArticles[x].author == authors[y].id)
                             gArticles[x].authorName = authors[y].name

@@ -34,6 +34,15 @@ class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapte
             holder.view.textViewAut.text = Html.fromHtml(article.authorName)
             holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace('-',' ').replace('T',' '))
         }
+        if (article.type == ArticleType.CIKK)
+        {
+            holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.cikk))
+        }
+        else if (article.type == ArticleType.INTERJU)
+        {
+            holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.interju))
+        }
+
         holder.view.setOnClickListener {
             val intent = Intent(holder.view.context, ArticleActivity::class.java)
             intent.putExtra("title", article.title.rendered)

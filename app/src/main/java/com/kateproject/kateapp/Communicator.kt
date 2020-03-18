@@ -1,6 +1,5 @@
 package com.kateproject.kateapp
 
-import android.app.Application
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException
@@ -42,15 +41,15 @@ class Communicator
                             val gsonInstance = GsonBuilder().create()
                             articles =
                                 gsonInstance.fromJson(body, Array<Article>::class.java).toList()
-                            for (x in 0 until articles.count()) {
+                            for (x in articles.indices) {
                                 if (articles[x].title.rendered.contains("interjú", true)) {
                                     articles[x].type = ArticleType.INTERJU
                                 } else {
                                     articles[x].type = ArticleType.CIKK
                                 }
                                 articles[x].authorName = ""
-                                numTries=0
                             }
+                            numTries=0
                         } catch (e: Exception) {
                             println("$numTries: Error:")
                             println(e)
@@ -81,7 +80,7 @@ class Communicator
                             val gsonInstance = GsonBuilder().create()
                             articles =
                                 gsonInstance.fromJson(body, Array<Article>::class.java).toList()
-                            for (x in 0 until articles.count()) {
+                            for (x in articles.indices) {
                                 if (articles[x].title.rendered.contains("interjú", true)) {
                                     articles[x].type = ArticleType.INTERJU
                                 } else {
@@ -104,7 +103,7 @@ class Communicator
 
         return articles
     }
-    fun LoadAuthors(count:Int = 20): List<Author>
+    fun LoadAuthors(count:Int = 50): List<Author>
     {
 
         val url = "http://www.kate.hu/wp-json/wp/v2/users?per_page=$count"

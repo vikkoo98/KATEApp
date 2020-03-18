@@ -1,10 +1,12 @@
 package com.kateproject.kateapp
 
+import android.app.Application
 import com.google.gson.GsonBuilder
 import okhttp3.*
 import java.io.IOException
 import java.util.concurrent.CountDownLatch
 import com.kateproject.kateapp.MainActivity.Companion.gArticles
+import java.lang.Exception
 
 enum class MessageType {
     BUG, KATE, ARTICLE
@@ -20,66 +22,84 @@ class Communicator
         var articles: List<Article> = emptyList()
 
         if (forceLoad) {
-            val countDownLatch = CountDownLatch(1)
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    /* Snackbar.make(view, "Loading failed, try again", Snackbar.LENGTH_SHORT)
-                     .show()*/
-                    println("JSON download Error: $e")
-                    countDownLatch.countDown()
-                }
 
-                override fun onResponse(call: Call, response: Response) {
-                    val body = response.body?.string()
-                    println(body)
-
-                    val gsonInstance = GsonBuilder().create()
-                    articles = gsonInstance.fromJson(body, Array<Article>::class.java).toList()
-                    for (x in 0 until articles.count()) {
-                        if (articles[x].title.rendered.contains("interjú", true))
-                        {
-                            articles[x].type = ArticleType.INTERJU
-                        }
-                        else
-                        {
-                            articles[x].type = ArticleType.CIKK
-                        }
-                        articles[x].authorName = ""
+            var numTries = 5
+            while (numTries > 0)
+            {
+                val countDownLatch = CountDownLatch(1)
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        println("JSON download Error: $e")
+                        countDownLatch.countDown()
+                        numTries--
                     }
-                    countDownLatch.countDown()
-                }
-            })
-            countDownLatch.await()
+
+                    override fun onResponse(call: Call, response: Response) {
+                        try {
+                            val body = response.body?.string()
+                            println(body)
+
+                            val gsonInstance = GsonBuilder().create()
+                            articles =
+                                gsonInstance.fromJson(body, Array<Article>::class.java).toList()
+                            for (x in 0 until articles.count()) {
+                                if (articles[x].title.rendered.contains("interjú", true)) {
+                                    articles[x].type = ArticleType.INTERJU
+                                } else {
+                                    articles[x].type = ArticleType.CIKK
+                                }
+                                articles[x].authorName = ""
+                                numTries=0
+                            }
+                        } catch (e: Exception) {
+                            println("$numTries: Error:")
+                            println(e)
+                            numTries--
+                        }
+                        countDownLatch.countDown()
+                    }
+                })
+                countDownLatch.await()
+            }
         }
         else
         {
-            client.newCall(request).enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    /* Snackbar.make(view, "Loading failed, try again", Snackbar.LENGTH_SHORT)
-                     .show()*/
-                    println("JSON download Error: $e")
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    val body = response.body?.string()
-                    println(body)
-
-                    val gsonInstance = GsonBuilder().create()
-                    articles = gsonInstance.fromJson(body, Array<Article>::class.java).toList()
-                    for (x in 0 until articles.count()) {
-                        if (articles[x].title.rendered.contains("interjú", true))
-                        {
-                            articles[x].type = ArticleType.INTERJU
-                        }
-                        else
-                        {
-                            articles[x].type = ArticleType.CIKK
-                        }
-                        articles[x].authorName = ""
+            var numTries = 5
+            while (numTries > 0)
+            {
+                client.newCall(request).enqueue(object : Callback {
+                    override fun onFailure(call: Call, e: IOException) {
+                        println("JSON download Error: $e")
                     }
-                    gArticles=articles
-                }
-            })
+
+                    override fun onResponse(call: Call, response: Response) {
+
+                        try {
+                            val body = response.body?.string()
+                            println(body)
+
+                            val gsonInstance = GsonBuilder().create()
+                            articles =
+                                gsonInstance.fromJson(body, Array<Article>::class.java).toList()
+                            for (x in 0 until articles.count()) {
+                                if (articles[x].title.rendered.contains("interjú", true)) {
+                                    articles[x].type = ArticleType.INTERJU
+                                } else {
+                                    articles[x].type = ArticleType.CIKK
+                                }
+                                articles[x].authorName = ""
+                                gArticles=articles
+                                numTries=0
+                            }
+                        } catch (e: Exception) {
+                            println("$numTries: Error:")
+                            println(e)
+                            numTries--
+                        }
+
+                    }
+                })
+            }
         }
 
         return articles
@@ -92,23 +112,35 @@ class Communicator
         val request = Request.Builder().url(url).build()
         val client = OkHttpClient()
 
-        val countDownLatch = CountDownLatch(1)
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                /* Snackbar.make(view, "Loading failed, try again", Snackbar.LENGTH_SHORT)
-                    .show()*/
-                println("JSON download Error: $e")
-                countDownLatch.countDown()
-            }
-            override fun onResponse(call: Call, response: Response) {
-                val body = response.body?.string()
-                println(body)
-                val gsonInstance = GsonBuilder().create()
-                authors = gsonInstance.fromJson(body, Array<Author>::class.java).toList()
-                countDownLatch.countDown()
+
+        var numTries = 5
+        while (numTries > 0)
+        {
+            val countDownLatch = CountDownLatch(1)
+            client.newCall(request).enqueue(object : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    println("JSON download Error: $e")
+                    numTries--
+                    countDownLatch.countDown()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    try {
+                        val body = response.body?.string()
+                        println(body)
+                        val gsonInstance = GsonBuilder().create()
+                        authors = gsonInstance.fromJson(body, Array<Author>::class.java).toList()
+                        numTries=0
+                    } catch (e: Exception) {
+                        println("$numTries: Error:")
+                        println(e)
+                        numTries--
+                    }
+                    countDownLatch.countDown()
                 }
             })
-        countDownLatch.await()
+            countDownLatch.await()
+        }
         return authors
     }
 

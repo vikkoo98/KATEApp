@@ -1,5 +1,8 @@
 package com.kateproject.kateapp
 
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,6 +23,8 @@ class MainActivity : AppCompatActivity() {
 
     }
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var notificationManager: NotificationManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -27,12 +32,22 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+    //cikkek első betöltése
         val comm = Communicator()
         val articles = comm.LoadArticles(settings.arNum, forceLoad = true)
         gArticles = articles
         val authors = comm.LoadAuthors()
 
-        //írónevek és id-k összefésülése
+    //értesítés deklarálás
+        //intent = Intent(this,BackgroundService::class.java)
+        //intent.putExtra("LastID",gArticles[0].id)
+        //this.startService(intent)
+
+        //notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        //val notificationTask = NotificationTask(this,notificationManager)
+        //notificationTask.sendNotification("Hey you", "yes, you")
+
+    //írónevek és id-k összefésülése
         for (x in 0 until gArticles.count())
             for (y in 0 until authors.count())
                 {
@@ -40,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                             gArticles[x].authorName = authors[y].name
                 }
 
-        //ez a menüsávnak a definiálása:
+    //ez a menüsávnak a definiálása:
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)

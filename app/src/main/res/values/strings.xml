@@ -12,4 +12,5 @@
     <string name="menu_archive">Archívum</string>
     <string name="personalise">Személyre szabás</string>
     <string name="menu_settings">Beállítások</string>
+    <string name="service_name">KÁTÉ háttérfolyamat</string>
 </resources>

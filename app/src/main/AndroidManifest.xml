@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.kateproject.kateapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -11,8 +12,10 @@
         android:roundIcon="@drawable/kate"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".ArticleActivity"></activity>
+        android:usesCleartextTraffic="true"
+                                        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="m">
+        <activity android:name=".ArticleActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -23,6 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name="BackgroundService"
+            android:icon="@drawable/kate"
+            android:label="@string/service_name"
+            android:permission="android.permission.BIND_JOB_SERVICE" >
+        </service>
     </application>
+
+
 
 </manifest>

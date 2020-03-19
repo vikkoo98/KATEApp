@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +15,8 @@ import com.kateproject.kateapp.Communicator
 import com.kateproject.kateapp.R
 import kotlinx.android.synthetic.main.fragment_settings.*
 import com.kateproject.kateapp.MainActivity.Companion.settings
+import com.kateproject.kateapp.MainActivity.Companion.jobInfo
+import com.kateproject.kateapp.MainActivity.Companion.jobScheduler
 
 class SettingsFragment : Fragment() {
 
@@ -85,6 +88,17 @@ class SettingsFragment : Fragment() {
                 settings.arNum=articleNumBar.progress
                 comm.LoadArticles(settings.arNum)
                 println(settings.arNum)
+
+                if (settings.arNot)
+                {
+                    jobScheduler.schedule(jobInfo)
+                    Toast.makeText(context,"Értesítések bekapcsolva",Toast.LENGTH_SHORT).show()
+                }
+                else
+                {
+                    jobScheduler.cancel(129)
+                    Toast.makeText(context,"Értesítések kikapcsolva",Toast.LENGTH_SHORT).show()
+                }
             }
         })
         return root

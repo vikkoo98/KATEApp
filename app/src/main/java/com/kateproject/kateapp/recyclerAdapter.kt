@@ -29,7 +29,7 @@ class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapte
             holder.view.textViewAut.text = Html.fromHtml(article.authorName, Html.FROM_HTML_MODE_COMPACT)
             holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace('-',' ').replace('T',' '), Html.FROM_HTML_MODE_COMPACT)
         } else {
-            holder.view.textViewTitle.text=Html.fromHtml(article.title.rendered)
+            holder.view.textViewTitle.text = Html.fromHtml(article.title.rendered)
             holder.view.textViewExc.text = Html.fromHtml(article.excerpt.rendered)
             holder.view.textViewAut.text = Html.fromHtml(article.authorName)
             holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace('-',' ').replace('T',' '))

@@ -1,8 +1,9 @@
 package com.kateproject.kateapp
 
-import android.app.NotificationManager
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,10 +21,11 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var gArticles: List<Article> = emptyList()
         var settings = Settings()
+        lateinit var jobScheduler: JobScheduler
+        lateinit var jobInfo: JobInfo
 
     }
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var notificationManager: NotificationManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -39,15 +41,19 @@ class MainActivity : AppCompatActivity() {
         val authors = comm.LoadAuthors()
 
     //értesítés deklarálás
-        //intent = Intent(this,BackgroundService::class.java)
-        //intent.putExtra("LastID",gArticles[0].id)
-        //this.startService(intent)
+        val cn = ComponentName(this,BackgroundScheduler::class.java)
+        val builder: JobInfo.Builder = JobInfo.Builder(129,cn)
+        builder.setPeriodic(60*60*1000)
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+        builder.setPersisted(true)
+        jobInfo = builder.build()
+        jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        if (settings.arNot)
+        { jobScheduler.schedule(jobInfo) }
+        else
+        { jobScheduler.cancel(129) }
 
-        //notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        //val notificationTask = NotificationTask(this,notificationManager)
-        //notificationTask.sendNotification("Hey you", "yes, you")
-
-    //írónevek és id-k összefésülése
+        //írónevek és id-k összefésülése
         for (x in gArticles.indices)
             for (y in authors.indices)
                 {

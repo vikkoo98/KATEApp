@@ -1,77 +1,85 @@
 package com.kateproject.kateapp
 
-import android.app.*
+import android.annotation.SuppressLint
+import android.app.NotificationManager
+import android.app.job.JobParameters
+import android.app.job.JobService
 import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
-import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Build
-import android.os.IBinder
+import android.text.Html
+import com.kateproject.kateapp.MainActivity.Companion.gArticles
+import kotlinx.android.synthetic.main.row_layout1.view.*
 
-
-
-class NotificationTask(private val context: Context, private val notificationManager: NotificationManager) {
-    lateinit var notificationChannel: NotificationChannel
-    lateinit var builder: Notification.Builder
-    private val channelID = "com.kateproject.kateapp"
-    private val description = "Általános értesítések"
-
-    fun sendNotification(title: String, content: String)
-    {
-        val intent = Intent(context, LauncherActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(context,0,intent, PendingIntent.FLAG_UPDATE_CURRENT)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel = NotificationChannel(channelID,description,NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor= Color.GREEN
-            notificationManager.createNotificationChannel(notificationChannel)
-
-            builder = Notification.Builder(context,channelID)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources,R.mipmap.ic_launcher))
-                .setContentIntent(pendingIntent)
+//ez végzi a cikk megtalálását
+open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
+{
+    override fun doInBackground(vararg p0: Void?): Article? {
+        val comm = Communicator()
+        val articles = comm.LoadArticles(1, forceLoad = true)
+        return if (gArticles.isNotEmpty() && articles.isNotEmpty() && gArticles[0].id != articles[0].id)
+        {
+            println("van új cikk")
+            val newArticles = mutableListOf<Article>()
+            newArticles.addAll(articles)
+            newArticles.addAll(gArticles)
+            gArticles=newArticles
+            articles[0]
         }
         else
         {
-            builder = Notification.Builder(context)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources,R.mipmap.ic_launcher))
-                .setContentIntent(pendingIntent)
+            println("nincs új cikk")
+            null
         }
-        notificationManager.notify(1,builder.build())
     }
 
 }
-/*
-class BackgroundService: Service()
-{
-    private lateinit var comm:Communicator
-    private var id: Int = 0
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notificationTask = NotificationTask(this,notificationManager)
-        id = intent.getIntExtra("ID",0)
-        comm = Communicator()
-        val articles = comm.LoadArticles(1,forceLoad = true)
+//ez jeleníti meg értesítésként
+class BackgroundScheduler: JobService() {
 
-        if (id == articles[0].id)
-        {
-            id=articles[0].id
+    private lateinit var backgroundExecute: BackgroundExecute
+    private lateinit var notificationManager: NotificationManager
+    private lateinit var notificationTask: NotificationTask
+
+    override fun onStopJob(p0: JobParameters?): Boolean {
+
+        backgroundExecute.cancel(true)
+        return false
+    }
+
+    override fun onStartJob(p0: JobParameters?): Boolean {
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationTask = NotificationTask("com.kateproject.kateapp", "Általános értesítések" ,this,notificationManager)
+
+        backgroundExecute = @SuppressLint("StaticFieldLeak")
+        object : BackgroundExecute() {
+
+            override fun onPostExecute(result: Article?) {
+                super.onPostExecute(result)
+                if (result != null) {
+
+                    val title: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    {
+                        Html.fromHtml(result.title.rendered, Html.FROM_HTML_MODE_COMPACT).toString()
+                    } else {
+                        Html.fromHtml(result.title.rendered).toString()
+                    }
+
+                    val excerpt: String = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                    {
+                        Html.fromHtml(result.excerpt.rendered, Html.FROM_HTML_MODE_COMPACT).toString()
+                    } else {
+                        Html.fromHtml(result.excerpt.rendered).toString()
+                    }
+
+                    notificationTask.sendNotification(title, excerpt)
+                }
+                jobFinished(p0,false)
+            }
         }
-        notificationTask.sendNotification(id.toString(), articles[0].title.rendered)
-        println("im done here")
-        return START_STICKY
+        backgroundExecute.execute()
+        return true
     }
 
-    override fun onBind(intent: Intent?): IBinder? {
-
-        return null
-    }
 }
-*/

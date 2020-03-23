@@ -41,14 +41,41 @@ class Communicator
                             val gsonInstance = GsonBuilder().create()
                             articles =
                                 gsonInstance.fromJson(body, Array<Article>::class.java).toList()
+
                             for (x in articles.indices) {
-                                if (articles[x].title.rendered.contains("interjú", true)) {
-                                    articles[x].type = ArticleType.INTERJU
-                                } else {
-                                    articles[x].type = ArticleType.CIKK
-                                }
+
+                                //ez most ide hardcode-olva lett, le lehetne ezt is mindig kérni, de azért nem akartam,
+                                //hogy ne kelljen feleslegesen még call-okat küldeni, minden esetre nem elegáns
+                                val tTipus = mutableListOf<ArticleType>()
+                                if (articles[x].title.rendered.contains("interjú", true)) tTipus.add(ArticleType.INTERJU)
+                                if (articles[x].categories.contains(7)) tTipus.add(ArticleType.CIKK)
+                                if (articles[x].categories.contains(13)) tTipus.add(ArticleType.ELET)
+                                if (articles[x].categories.contains(16)) tTipus.add(ArticleType.FESZTIVAL)
+                                if (articles[x].categories.contains(171)) tTipus.add(ArticleType.KATV)
+                                if (articles[x].categories.contains(28)) tTipus.add(ArticleType.KEPRIPORT)
+                                if (articles[x].categories.contains(80)) tTipus.add(ArticleType.KIALLITAS)
+                                if (articles[x].categories.contains(27)) tTipus.add(ArticleType.KONCERT)
+                                if (articles[x].categories.contains(75)) tTipus.add(ArticleType.KONYV)
+                                if (articles[x].categories.contains(25)) tTipus.add(ArticleType.KULTURA)
+                                if (articles[x].categories.contains(26)) tTipus.add(ArticleType.MOZI)
+                                if (articles[x].categories.contains(6)) tTipus.add(ArticleType.NOKOMMENT)
+                                if (articles[x].categories.contains(29)) tTipus.add(ArticleType.OKTATAS)
+                                if (articles[x].categories.contains(37)) tTipus.add(ArticleType.PALYAZAT)
+                                if (articles[x].categories.contains(11)) tTipus.add(ArticleType.PARTY)
+                                if (articles[x].categories.contains(12)) tTipus.add(ArticleType.PROGRAM)
+                                if (articles[x].categories.contains(5)) tTipus.add(ArticleType.RHELY)
+                                if (articles[x].categories.contains(108)) tTipus.add(ArticleType.SPORT)
+                                if (articles[x].categories.contains(35)) tTipus.add(ArticleType.SZINHAZ)
+                                if (articles[x].categories.contains(1)) tTipus.add(ArticleType.UNCATEGORIZED)
+                                if (articles[x].categories.contains(97)) tTipus.add(ArticleType.VERSENY)
+                                if (articles[x].categories.contains(14)) tTipus.add(ArticleType.VIDEO)
+                                if (articles[x].categories.contains(36)) tTipus.add(ArticleType.ZENE)
+                                if (tTipus.size == 0) { tTipus.add(ArticleType.UNCATEGORIZED) }
+                                articles[x].tipus=tTipus
+
                                 articles[x].authorName = ""
                             }
+                            println(articles)
                             numTries=0
                         } catch (e: Exception) {
                             println("$numTries: Error:")
@@ -81,15 +108,40 @@ class Communicator
                             articles =
                                 gsonInstance.fromJson(body, Array<Article>::class.java).toList()
                             for (x in articles.indices) {
-                                if (articles[x].title.rendered.contains("interjú", true)) {
-                                    articles[x].type = ArticleType.INTERJU
-                                } else {
-                                    articles[x].type = ArticleType.CIKK
-                                }
+
+                                //ez most ide hardcode-olva lett, le lehetne ezt is mindig kérni, de azért nem akartam,
+                                //hogy ne kelljen feleslegesen még call-okat küldeni, minden esetre nem elegáns
+                                val tTipus = mutableListOf<ArticleType>()
+                                if (articles[x].title.rendered.contains("interjú", true)) tTipus.add(ArticleType.INTERJU)
+                                if (articles[x].categories.contains(7)) tTipus.add(ArticleType.CIKK)
+                                if (articles[x].categories.contains(13)) tTipus.add(ArticleType.ELET)
+                                if (articles[x].categories.contains(16)) tTipus.add(ArticleType.FESZTIVAL)
+                                if (articles[x].categories.contains(171)) tTipus.add(ArticleType.KATV)
+                                if (articles[x].categories.contains(28)) tTipus.add(ArticleType.KEPRIPORT)
+                                if (articles[x].categories.contains(80)) tTipus.add(ArticleType.KIALLITAS)
+                                if (articles[x].categories.contains(27)) tTipus.add(ArticleType.KONCERT)
+                                if (articles[x].categories.contains(75)) tTipus.add(ArticleType.KONYV)
+                                if (articles[x].categories.contains(25)) tTipus.add(ArticleType.KULTURA)
+                                if (articles[x].categories.contains(26)) tTipus.add(ArticleType.MOZI)
+                                if (articles[x].categories.contains(6)) tTipus.add(ArticleType.NOKOMMENT)
+                                if (articles[x].categories.contains(29)) tTipus.add(ArticleType.OKTATAS)
+                                if (articles[x].categories.contains(37)) tTipus.add(ArticleType.PALYAZAT)
+                                if (articles[x].categories.contains(11)) tTipus.add(ArticleType.PARTY)
+                                if (articles[x].categories.contains(12)) tTipus.add(ArticleType.PROGRAM)
+                                if (articles[x].categories.contains(5)) tTipus.add(ArticleType.RHELY)
+                                if (articles[x].categories.contains(108)) tTipus.add(ArticleType.SPORT)
+                                if (articles[x].categories.contains(35)) tTipus.add(ArticleType.SZINHAZ)
+                                if (articles[x].categories.contains(1)) tTipus.add(ArticleType.UNCATEGORIZED)
+                                if (articles[x].categories.contains(97)) tTipus.add(ArticleType.VERSENY)
+                                if (articles[x].categories.contains(14)) tTipus.add(ArticleType.VIDEO)
+                                if (articles[x].categories.contains(36)) tTipus.add(ArticleType.ZENE)
+                                if (tTipus.size == 0) { tTipus.add(ArticleType.UNCATEGORIZED) }
+                                articles[x].tipus=tTipus
+
                                 articles[x].authorName = ""
-                                gArticles=articles
-                                numTries=0
                             }
+                            gArticles=articles
+                            numTries=0
                         } catch (e: Exception) {
                             println("$numTries: Error:")
                             println(e)
@@ -103,6 +155,7 @@ class Communicator
 
         return articles
     }
+
     fun LoadAuthors(count:Int = 50): List<Author>
     {
 
@@ -157,17 +210,20 @@ class Communicator
         return articles
     }
 
-  fun FilterArticles(sourceArticles: List<Article>, types: List<ArticleType>): List<Article>
-  {
-      println(types)
-      val articles = mutableListOf<Article>()
-      for (x in 0 until sourceArticles.count())
-          for (y in 0 until types.count())
-          {
-              if (sourceArticles[x].type == types[y])
-                  articles.add(sourceArticles[x])
+    fun FilterArticles(sourceArticles: List<Article>, types: List<ArticleType>): List<Article>
+    {
+          println(types)
+          val articles = mutableListOf<Article>()
+          var vanE: Boolean
+          for (x in 0 until sourceArticles.count()) {
+              vanE = false
+              for (y in 0 until types.count()) {
+                  if (sourceArticles[x].tipus.contains(types[y]))
+                      vanE = true
+              }
+              if (vanE) articles.add(sourceArticles[x])
           }
-      return articles
+          return articles
   }
 
     fun GetArchive(Count: Int,diff: Int=0)

@@ -6,7 +6,6 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.row_layout1.view.*
 
@@ -34,11 +33,11 @@ class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapte
             holder.view.textViewAut.text = Html.fromHtml(article.authorName)
             holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace('-',' ').replace('T',' '))
         }
-        if (article.type == ArticleType.CIKK)
+        if (article.tipus == ArticleType.CIKK)
         {
             holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.cikk))
         }
-        else if (article.type == ArticleType.INTERJU)
+        else if (article.tipus == ArticleType.INTERJU)
         {
             holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.interju))
         }

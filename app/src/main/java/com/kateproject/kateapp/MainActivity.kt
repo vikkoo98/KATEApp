@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var gArticles: List<Article> = emptyList()
-        var settings = Settings()
+        var settings = Settings(checkBoxArray = BooleanArray(24))
         lateinit var jobScheduler: JobScheduler
         lateinit var jobInfo: JobInfo
 
@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        for (x in settings.checkBoxArray.indices)
+        {
+            settings.checkBoxArray[x]=true
+        }
 
     //cikkek első betöltése
         val comm = Communicator()
@@ -53,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         else
         { jobScheduler.cancel(129) }
 
-        //írónevek és id-k összefésülése
+    //írónevek és id-k összefésülése
         for (x in gArticles.indices)
             for (y in authors.indices)
                 {
@@ -95,10 +100,30 @@ data class Settings(
     var arNot: Boolean = true,         //cikk értesítések on/off
     //egyéb értesítések ide...
 
-    var articleFilter: Boolean = true,  //cikkek szűrője
-    var interviewFilter: Boolean = true,//interjú szűrő
-    var adFilter: Boolean = true,       //hirdetés szűrő
+    var checkBoxArray: BooleanArray,
     //egyéb szűrő pontok ide
 
     var arNum: Int = 20              //betöltendő cikkek száma
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Settings
+
+        if (allNot != other.allNot) return false
+        if (arNot != other.arNot) return false
+        if (!checkBoxArray.contentEquals(other.checkBoxArray)) return false
+        if (arNum != other.arNum) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = allNot.hashCode()
+        result = 31 * result + arNot.hashCode()
+        result = 31 * result + checkBoxArray.contentHashCode()
+        result = 31 * result + arNum
+        return result
+    }
+}

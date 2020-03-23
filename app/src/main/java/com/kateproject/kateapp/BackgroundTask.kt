@@ -9,7 +9,7 @@ import android.os.AsyncTask
 import android.os.Build
 import android.text.Html
 import com.kateproject.kateapp.MainActivity.Companion.gArticles
-import kotlinx.android.synthetic.main.row_layout1.view.*
+
 
 //ez végzi a cikk megtalálását
 open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
@@ -29,7 +29,9 @@ open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
         else
         {
             println("nincs új cikk")
-            null
+
+            //egy biztonsági sor, hogy megjön-e az a bizonyos üzenet:
+            Article(0,"","",Packed("Nincs új cikk"), emptyList(),Packed(""),Packed(""),0,"", emptyList())
         }
     }
 

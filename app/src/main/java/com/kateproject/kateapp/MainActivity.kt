@@ -15,6 +15,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,9 +35,16 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        for (x in settings.checkBoxArray.indices)
+    //beállítások betöltése
+        ModelPreferencesManager.with(this)
+        try
         {
-            settings.checkBoxArray[x]=true
+            settings = ModelPreferencesManager.get<Settings>("KEY_SETTINGS")!!
+        }
+        catch (e: Exception) {
+            for (x in settings.checkBoxArray.indices) {
+                settings.checkBoxArray[x] = true
+            }
         }
 
     //cikkek első betöltése
@@ -92,6 +100,27 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        println("kiléptem")
+        ModelPreferencesManager.put(settings,"KEY_SETTINGS")
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        println("kiléptem")
+        ModelPreferencesManager.put(settings,"KEY_SETTINGS")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        println("kiléptem")
+        ModelPreferencesManager.put(settings,"KEY_SETTINGS")
     }
 }
 

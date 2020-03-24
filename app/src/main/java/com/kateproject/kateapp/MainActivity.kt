@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         ModelPreferencesManager.with(this)
         try
         {
-            settings = ModelPreferencesManager.get<Settings>("KEY_SETTINGS")!!
+            val saveFile = ModelPreferencesManager.get<SaveFile>("KEY_SAVE")!!
+            settings = saveFile.settings
         }
         catch (e: Exception) {
             for (x in settings.checkBoxArray.indices) {
@@ -47,10 +48,46 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    //cikkek első betöltése
+
         val comm = Communicator()
-        val articles = comm.LoadArticles(settings.arNum, forceLoad = true)
-        gArticles = articles
+        try
+        {
+            //cikkek betöltése fájlból
+            var articles = mutableListOf<Article>()
+            val saveFile = ModelPreferencesManager.get<SaveFile>("KEY_SAVE")!!
+            val tArticles = saveFile.articles
+            println("Talált cikkek: " +tArticles.size)
+            println(tArticles[0]!!.title.rendered)
+            val nArticles = comm.LoadArticles(10, forceLoad = true)
+            for (x in nArticles.indices)
+            {
+                if (nArticles[x].id != tArticles[0]!!.id) articles.add(nArticles[x])
+                else {break}
+            }
+            for (x in tArticles.indices)
+            {
+                articles.add(tArticles[x]!!)
+            }
+            gArticles=articles
+        }
+        catch (e: Exception)
+        {
+            println(e)
+            //cikkek első betöltése
+            var articles = mutableListOf<Article>()
+            var atEnd = false
+            var i = 0
+            while (!atEnd)      //addig fusson amíg talál új cikket
+            {
+                val tArticles = comm.LoadArticles(settings.arNum, forceLoad = true,diff = i*settings.arNum)
+                if (tArticles.count() <= 0) { atEnd = true }
+                else {articles.addAll(tArticles)}
+                i++
+                println("i = $i, talát cikkek: ${tArticles.count()}")
+            }
+            gArticles=articles
+        }
+
         val authors = comm.LoadAuthors()
 
     //értesítés deklarálás
@@ -106,21 +143,40 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
         println("kiléptem")
-        ModelPreferencesManager.put(settings,"KEY_SETTINGS")
+        val aArticles = arrayOfNulls<Article>(gArticles.size)
+        for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
+        println(aArticles.size)
+        val saveFile = SaveFile(settings,aArticles)
+
+        ModelPreferencesManager.put(saveFile,"KEY_SAVE")
     }
 
     override fun onStop() {
         super.onStop()
 
         println("kiléptem")
+        val aArticles = arrayOfNulls<Article>(gArticles.size)
+        for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
+        println(aArticles.size)
+        val saveFile = SaveFile(settings,aArticles)
+
+        ModelPreferencesManager.put(saveFile,"KEY_SAVE")
+        /*
         ModelPreferencesManager.put(settings,"KEY_SETTINGS")
+        val aArticles = arrayOfNulls<Article>(gArticles.size)
+        for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
+        ModelPreferencesManager.put(aArticles,"KEY_ARTICLES")*/
     }
 
     override fun onPause() {
         super.onPause()
 
-        println("kiléptem")
-        ModelPreferencesManager.put(settings,"KEY_SETTINGS")
+        val aArticles = arrayOfNulls<Article>(gArticles.size)
+        for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
+        println(aArticles.size)
+        val saveFile = SaveFile(settings,aArticles)
+
+        ModelPreferencesManager.put(saveFile,"KEY_SAVE")
     }
 }
 
@@ -156,3 +212,27 @@ data class Settings(
         return result
     }
 }
+
+data class SaveFile(
+    val settings: Settings,
+    val articles: Array<Article?>
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as SaveFile
+
+        if (settings != other.settings) return false
+        if (!articles.contentEquals(other.articles)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = settings.hashCode()
+        result = 31 * result + articles.contentHashCode()
+        return result
+    }
+}
+

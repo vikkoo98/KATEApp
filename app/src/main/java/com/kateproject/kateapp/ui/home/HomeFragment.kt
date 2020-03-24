@@ -46,8 +46,12 @@ class HomeFragment : Fragment() {
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        if (newText=="")
-                            recyclerView.adapter = RecyclerAdapter(it)
+                        if (newText=="" || newText == null) { recyclerView.adapter = RecyclerAdapter(it) }
+                        else
+                        {
+                            val articles = comm.SearchArticles(it,newText)
+                            recyclerView.adapter = RecyclerAdapter(articles)
+                        }
                         return true
                     }
                 })

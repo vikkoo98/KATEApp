@@ -81,12 +81,12 @@ class SettingsFragment : Fragment() {
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {}
             })
 
-            val comm = Communicator()
+            //val comm = Communicator()
             saveButton.setOnClickListener {
                 settings.allNot=switch1.isChecked
                 settings.arNot=switch2.isChecked
                 settings.arNum=articleNumBar.progress
-                comm.LoadArticles(settings.arNum)
+                //comm.LoadArticles(settings.arNum)
                 println(settings.arNum)
 
                 if (settings.arNot)

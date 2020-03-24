@@ -33,11 +33,11 @@ class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapte
             holder.view.textViewAut.text = Html.fromHtml(article.authorName)
             holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace('-',' ').replace('T',' '))
         }
-        if (article.tipus == ArticleType.CIKK)
+        if (article.tipus.contains(ArticleType.CIKK))
         {
             holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.cikk))
         }
-        else if (article.tipus == ArticleType.INTERJU)
+        else if (article.tipus.contains(ArticleType.INTERJU))
         {
             holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.interju))
         }

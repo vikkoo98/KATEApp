@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+    //cikkek beszerzése
         val comm = Communicator()
         try
         {
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
     //értesítés deklarálás
         val cn = ComponentName(this,BackgroundScheduler::class.java)
         val builder: JobInfo.Builder = JobInfo.Builder(129,cn)
-        builder.setPeriodic(60*60*1000)
+        builder.setPeriodic(30*60*1000)
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
         builder.setPersisted(true)
         jobInfo = builder.build()

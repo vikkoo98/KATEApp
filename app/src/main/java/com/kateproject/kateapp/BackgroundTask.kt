@@ -31,7 +31,7 @@ open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
             println("nincs új cikk")
 
             //egy biztonsági sor, hogy megjön-e az a bizonyos üzenet:
-            Article(0,"","",Packed("Nincs új cikk"), emptyList(),Packed(""),Packed(""),0,"", emptyList())
+            Article(0,"","",Packed(articles[0].title.rendered), emptyList(),Packed(gArticles[0].title.rendered),Packed(gArticles[0].title.rendered),0,"", emptyList())
         }
     }
 

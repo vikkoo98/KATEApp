@@ -34,8 +34,7 @@ class NotificationTask(private val channelID: String, private val description: S
             builder = Notification.Builder(context,channelID)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setLargeIcon(BitmapFactory.decodeResource(context.resources,R.mipmap.ic_launcher))
+                .setSmallIcon(R.drawable.kate)
                 .setContentIntent(pendingIntent)
         }
         else

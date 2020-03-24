@@ -147,8 +147,12 @@ class MainActivity : AppCompatActivity() {
         for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
         println(aArticles.size)
         val saveFile = SaveFile(settings,aArticles)
-
         ModelPreferencesManager.put(saveFile,"KEY_SAVE")
+
+        val sharedPreference =  getSharedPreferences("SAVE_PREF",Context.MODE_MULTI_PROCESS)
+        val editor = sharedPreference.edit()
+        editor.putInt("LAST_ARTICLE", gArticles[0].id)
+        editor.apply()
     }
 
     override fun onStop() {
@@ -159,13 +163,12 @@ class MainActivity : AppCompatActivity() {
         for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
         println(aArticles.size)
         val saveFile = SaveFile(settings,aArticles)
-
         ModelPreferencesManager.put(saveFile,"KEY_SAVE")
-        /*
-        ModelPreferencesManager.put(settings,"KEY_SETTINGS")
-        val aArticles = arrayOfNulls<Article>(gArticles.size)
-        for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
-        ModelPreferencesManager.put(aArticles,"KEY_ARTICLES")*/
+
+        val sharedPreference =  getSharedPreferences("SAVE_PREF",Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putInt("LAST_ARTICLE", gArticles[0].id)
+        editor.apply()
     }
 
     override fun onPause() {
@@ -175,8 +178,12 @@ class MainActivity : AppCompatActivity() {
         for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
         println(aArticles.size)
         val saveFile = SaveFile(settings,aArticles)
-
         ModelPreferencesManager.put(saveFile,"KEY_SAVE")
+
+        val sharedPreference =  getSharedPreferences("SAVE_PREF",Context.MODE_PRIVATE)
+        val editor = sharedPreference.edit()
+        editor.putInt("LAST_ARTICLE", gArticles[0].id)
+        editor.apply()
     }
 }
 

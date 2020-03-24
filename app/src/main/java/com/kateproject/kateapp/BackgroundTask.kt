@@ -14,27 +14,66 @@ import com.kateproject.kateapp.MainActivity.Companion.gArticles
 //ez végzi a cikk megtalálását
 open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
 {
+    companion object {
+        var lastArticle: Article = gArticles[0]
+    }
+
     override fun doInBackground(vararg p0: Void?): Article? {
         val comm = Communicator()
         val articles = comm.LoadArticles(1, forceLoad = true)
-        return if (gArticles.isNotEmpty() && articles.isNotEmpty() && gArticles[0].id != articles[0].id)
-        {
-            println("van új cikk")
-            val newArticles = mutableListOf<Article>()
-            newArticles.addAll(articles)
-            newArticles.addAll(gArticles)
-            gArticles=newArticles
-            articles[0]
-        }
-        else
-        {
-            println("nincs új cikk")
 
-            //egy biztonsági sor, hogy megjön-e az a bizonyos üzenet:
-            Article(0,"","",Packed(articles[0].title.rendered), emptyList(),Packed(gArticles[0].title.rendered),Packed(gArticles[0].title.rendered),0,"", emptyList())
+        return if (articles.isEmpty()) {//ha nincs net pl.
+            println("hiba a letöltéssel")
+            Article(
+                0,
+                "",
+                "",
+                Packed("hiba a letöltéssel"),
+                emptyList(),
+                Packed(gArticles[0].title.rendered),
+                Packed(gArticles[0].title.rendered),
+                0,
+                "",
+                emptyList()
+            )
+        } else if (gArticles.isNotEmpty() && gArticles !=null  && articles[0].id == gArticles[0].id) {//ha nincs új cikk
+            lastArticle = gArticles[0]
+            println("nincs új cikk")
+            Article(
+                0,
+                "",
+                "",
+                Packed(articles[0].title.rendered),
+                emptyList(),
+                Packed(gArticles[0].title.rendered),
+                Packed(gArticles[0].title.rendered),
+                0,
+                "",
+                emptyList()
+            )
+        } else if (gArticles.isNotEmpty() && gArticles !=null  && articles[0].id != gArticles[0].id) {//ha van új cikk
+            lastArticle = gArticles[0]
+            articles[0]
+        } else if ((gArticles.isEmpty() ||  gArticles == null ) && articles[0].id == lastArticle.id) {//ha már nincs gArticles
+            println("nincs új cikk")
+            Article(
+                0,
+                "",
+                "",
+                Packed(articles[0].title.rendered),
+                emptyList(),
+                Packed(lastArticle.title.rendered),
+                Packed(lastArticle.title.rendered),
+                0,
+                "",
+                emptyList()
+            )
+        } else if ((gArticles.isEmpty() ||  gArticles == null ) && articles[0].id != lastArticle.id) {//ha már nincs gArticles, és van új cikk
+            articles[0]
+        } else {//egyéb esetben
+            null
         }
     }
-
 }
 
 //ez jeleníti meg értesítésként

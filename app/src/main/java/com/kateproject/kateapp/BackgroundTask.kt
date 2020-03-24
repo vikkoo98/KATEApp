@@ -12,66 +12,32 @@ import com.kateproject.kateapp.MainActivity.Companion.gArticles
 
 
 //ez végzi a cikk megtalálását
-open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
+open class BackgroundExecute(val id: Int): AsyncTask<Void, Void, Article?>()
 {
-    companion object {
-        lateinit var lastArticle: Article
-    }
-
     override fun doInBackground(vararg p0: Void?): Article? {
         val comm = Communicator()
         val articles = comm.LoadArticles(1, forceLoad = true)
 
-        return if (articles.isEmpty()) {//ha nincs net pl.
-            println("hiba a letöltéssel")
-            Article(
-                0,
-                "",
-                "",
-                Packed("hiba a letöltéssel"),
-                emptyList(),
-                Packed(gArticles[0].title.rendered),
-                Packed(gArticles[0].title.rendered),
-                0,
-                "",
-                emptyList()
-            )
-        } else if (gArticles !=null && gArticles.isNotEmpty() && articles[0].id == gArticles[0].id) {//ha nincs új cikk
-            lastArticle = gArticles[0]
-            println("nincs új cikk")
-            Article(
-                0,
-                "",
-                "",
-                Packed(articles[0].title.rendered),
-                emptyList(),
-                Packed(gArticles[0].title.rendered),
-                Packed(gArticles[0].title.rendered),
-                0,
-                "",
-                emptyList()
-            )
-        } else if ( gArticles !=null && gArticles.isNotEmpty() && articles[0].id != gArticles[0].id) {//ha van új cikk
-            lastArticle = gArticles[0]
-            articles[0]
-        } else if ((gArticles == null || gArticles.isEmpty() ) && articles[0].id == lastArticle.id) {//ha már nincs gArticles
-            println("nincs új cikk")
-            Article(
-                0,
-                "",
-                "",
-                Packed(articles[0].title.rendered),
-                emptyList(),
-                Packed(lastArticle.title.rendered),
-                Packed(lastArticle.title.rendered),
-                0,
-                "",
-                emptyList()
-            )
-        } else if ((gArticles == null || gArticles.isEmpty() ) && articles[0].id != lastArticle.id) {//ha már nincs gArticles, és van új cikk
-            articles[0]
-        } else {//egyéb esetben
-            null
+        return when {
+            articles.isEmpty() -> {//ha nincs net pl.
+                println("hiba a letöltéssel")
+                Article(0, "", "", Packed("hiba a letöltéssel"), emptyList(), Packed(id.toString()), Packed(id.toString()), 0, "", emptyList())
+            }
+            id == 0 -> {//ha nincs id
+
+                println("nem megy át az id")
+                Article(0, "", "", Packed(articles[0].title.rendered), emptyList(), Packed("$id - ${articles[0]}"), Packed("$id - ${articles[0]}"), 0, "", emptyList())
+            }
+            id != articles[0].id -> {//ha van új cikk
+                println("van új cikk")
+                articles[0]
+            }
+            id == articles[0].id -> {//ha nincs új cikk
+                println("nincs új cikk")
+                Article(0, "", "", Packed(articles[0].title.rendered), emptyList(), Packed("$id - ${articles[0]}"), Packed("$id - ${articles[0]}"), 0, "", emptyList())
+            }
+            else -> //egyéb esetben
+                null
         }
     }
 }
@@ -90,11 +56,13 @@ class BackgroundScheduler: JobService() {
     }
 
     override fun onStartJob(p0: JobParameters?): Boolean {
+        val pBundle = p0?.extras
+        val id = pBundle?.getInt("ARTICLE_ID") ?: 0
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationTask = NotificationTask("com.kateproject.kateapp", "Általános értesítések" ,this,notificationManager)
 
         backgroundExecute = @SuppressLint("StaticFieldLeak")
-        object : BackgroundExecute() {
+        object : BackgroundExecute(id) {
 
             override fun onPostExecute(result: Article?) {
                 super.onPostExecute(result)

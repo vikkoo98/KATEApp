@@ -5,6 +5,7 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -16,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import java.lang.Exception
-import com.kateproject.kateapp.BackgroundExecute.Companion.lastArticle
 
 class MainActivity : AppCompatActivity() {
 
@@ -92,12 +92,14 @@ class MainActivity : AppCompatActivity() {
         val authors = comm.LoadAuthors()
 
     //értesítés deklarálás
-        lastArticle = gArticles[0]
         val cn = ComponentName(this,BackgroundScheduler::class.java)
         val builder: JobInfo.Builder = JobInfo.Builder(129,cn)
         builder.setPeriodic(30*60*1000)
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
         builder.setPersisted(true)
+        val pBundle = PersistableBundle()
+        pBundle.putInt("ARTICLE_ID",gArticles[0].id)
+        builder.setExtras(pBundle)
         jobInfo = builder.build()
         jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
         if (settings.arNot)

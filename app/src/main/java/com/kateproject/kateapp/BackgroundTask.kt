@@ -15,7 +15,7 @@ import com.kateproject.kateapp.MainActivity.Companion.gArticles
 open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
 {
     companion object {
-        var lastArticle: Article = gArticles[0]
+        lateinit var lastArticle: Article
     }
 
     override fun doInBackground(vararg p0: Void?): Article? {
@@ -36,7 +36,7 @@ open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
                 "",
                 emptyList()
             )
-        } else if (gArticles.isNotEmpty() && gArticles !=null  && articles[0].id == gArticles[0].id) {//ha nincs új cikk
+        } else if (gArticles !=null && gArticles.isNotEmpty() && articles[0].id == gArticles[0].id) {//ha nincs új cikk
             lastArticle = gArticles[0]
             println("nincs új cikk")
             Article(
@@ -51,10 +51,10 @@ open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
                 "",
                 emptyList()
             )
-        } else if (gArticles.isNotEmpty() && gArticles !=null  && articles[0].id != gArticles[0].id) {//ha van új cikk
+        } else if ( gArticles !=null && gArticles.isNotEmpty() && articles[0].id != gArticles[0].id) {//ha van új cikk
             lastArticle = gArticles[0]
             articles[0]
-        } else if ((gArticles.isEmpty() ||  gArticles == null ) && articles[0].id == lastArticle.id) {//ha már nincs gArticles
+        } else if ((gArticles == null || gArticles.isEmpty() ) && articles[0].id == lastArticle.id) {//ha már nincs gArticles
             println("nincs új cikk")
             Article(
                 0,
@@ -68,7 +68,7 @@ open class BackgroundExecute: AsyncTask<Void, Void, Article?>()
                 "",
                 emptyList()
             )
-        } else if ((gArticles.isEmpty() ||  gArticles == null ) && articles[0].id != lastArticle.id) {//ha már nincs gArticles, és van új cikk
+        } else if ((gArticles == null || gArticles.isEmpty() ) && articles[0].id != lastArticle.id) {//ha már nincs gArticles, és van új cikk
             articles[0]
         } else {//egyéb esetben
             null

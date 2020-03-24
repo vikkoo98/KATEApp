@@ -24,6 +24,7 @@ class ArchiveFragment : Fragment() {
             ViewModelProviders.of(this).get(ArchiveViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_archive, container, false)
         archiveViewModel.text.observe(this, Observer {
+            mWebview.settings.javaScriptEnabled = true
             mWebview.loadUrl("https://issuu.com/bme-gepeszmernoki-kar")
 
 

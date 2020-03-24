@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import java.lang.Exception
+import com.kateproject.kateapp.BackgroundExecute.Companion.lastArticle
 
 class MainActivity : AppCompatActivity() {
 
@@ -91,6 +92,7 @@ class MainActivity : AppCompatActivity() {
         val authors = comm.LoadAuthors()
 
     //értesítés deklarálás
+        lastArticle = gArticles[0]
         val cn = ComponentName(this,BackgroundScheduler::class.java)
         val builder: JobInfo.Builder = JobInfo.Builder(129,cn)
         builder.setPeriodic(30*60*1000)

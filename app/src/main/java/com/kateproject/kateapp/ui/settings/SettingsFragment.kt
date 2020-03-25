@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.kateproject.kateapp.Communicator
 import com.kateproject.kateapp.R
 import kotlinx.android.synthetic.main.fragment_settings.*
 import com.kateproject.kateapp.MainActivity.Companion.settings

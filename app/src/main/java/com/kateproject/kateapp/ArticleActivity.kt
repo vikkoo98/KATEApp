@@ -5,11 +5,7 @@ import android.os.Bundle
 import android.text.Html
 import kotlinx.android.synthetic.main.activity_article.*
 import org.sufficientlysecure.htmltextview.HtmlTextView
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.os.Build
-import kotlinx.android.synthetic.main.row_layout1.view.*
 import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter
 
 

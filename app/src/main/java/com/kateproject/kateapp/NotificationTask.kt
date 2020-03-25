@@ -11,9 +11,9 @@ class NotificationTask(private val channelID: String, private val description: S
     companion object {
         var ID = 0
     }
-    lateinit var notificationChannel: NotificationChannel
-    lateinit var builder: Notification.Builder
-    var thisID=0
+    private lateinit var notificationChannel: NotificationChannel
+    private lateinit var builder: Notification.Builder
+    private var thisID=0
 
     init {
         ID++

@@ -13,7 +13,7 @@ enum class MessageType {
 
 class Communicator
 {
-    var tries = 10
+    private var tries = 10
     fun loadArticles(Count: Int, diff: Int=0, forceLoad: Boolean = false):List<Article>
     {
         val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=$Count&offset=$diff"

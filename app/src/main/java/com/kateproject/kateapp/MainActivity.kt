@@ -3,9 +3,6 @@ package com.kateproject.kateapp
 import android.annotation.SuppressLint
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
-import android.content.ComponentName
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration

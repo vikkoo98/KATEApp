@@ -13,7 +13,7 @@ class HomeViewModel: ViewModel() {
 
     private val _text = MutableLiveData<List<Article>>().apply {
         val comm = Communicator()
-        var types = mutableListOf<ArticleType>()
+        val types = mutableListOf<ArticleType>()
 
         if (settings.checkBoxArray[0]) {types.add(ArticleType.CIKK)}
         if (settings.checkBoxArray[1]) {types.add(ArticleType.ELET)}

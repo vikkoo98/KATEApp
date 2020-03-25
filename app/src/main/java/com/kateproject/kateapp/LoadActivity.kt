@@ -13,7 +13,7 @@ import java.lang.Exception
 @SuppressLint("StaticFieldLeak")
 open class InitializeTask( private val mainActivity: MainActivity): AsyncTask <Void, Void, Boolean>() { //ez itt sír valamiért
     override fun doInBackground(vararg params: Void?): Boolean {
-        setThreadPriority(THREAD_PRIORITY_BACKGROUND + THREAD_PRIORITY_MORE_FAVORABLE)
+        setThreadPriority(THREAD_PRIORITY_FOREGROUND)
         //beállítások betöltése
         ModelPreferencesManager.with(mainActivity)
         try
@@ -35,7 +35,7 @@ open class InitializeTask( private val mainActivity: MainActivity): AsyncTask <V
             val articles = mutableListOf<Article>()
             val saveFile = ModelPreferencesManager.get<SaveFile>("KEY_SAVE")!!
             val tArticles = saveFile.articles
-            println("Talált cikkek: " +tArticles.size)
+            println("Talált cikkek: " + tArticles!!.size)
             println(tArticles[0]!!.title.rendered)
             val nArticles = comm.loadArticles(10, forceLoad = true)
             for (x in nArticles.indices)

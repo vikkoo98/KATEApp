@@ -13,11 +13,15 @@ class ArticleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val title = intent.getStringExtra("title")
         val author = intent.getStringExtra("author")
         val content = intent.getStringExtra("content")
         val date = intent.getStringExtra("date")
         setContentView(R.layout.activity_article)
+
+        supportActionBar!!.title = title
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {

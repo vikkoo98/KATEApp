@@ -14,6 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         var settings = Settings(checkBoxArray = BooleanArray(24))
         lateinit var jobScheduler: JobScheduler
         lateinit var jobInfo: JobInfo
+        var wasChecked = false
+        var canSave = true
     }
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var initializeTask: InitializeTask
@@ -29,145 +32,76 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.loading_screen) //először loading screen legyen
 
-        //setContentView(R.layout.activity_main)
-        //val toolbar: Toolbar = findViewById(R.id.toolbar)
-        //setSupportActionBar(toolbar)
+        if (!wasChecked) {
+            setContentView(R.layout.loading_screen) //először loading screen legyen
 
-        //értesítés deklarálás
+            //setContentView(R.layout.activity_main)
+            //val toolbar: Toolbar = findViewById(R.id.toolbar)
+            //setSupportActionBar(toolbar)
 
-        //háttérfolyamat
-        initializeTask = @SuppressLint("StaticFieldLeak")
-        object : InitializeTask(this) {
-            override fun onPostExecute(result: Boolean?) {
-                super.onPostExecute(result)
+            //értesítés deklarálás
 
-                //főoldal betöltése
-                //setTheme(R.style.AppTheme)
-                setContentView(R.layout.activity_main)
-                val toolbar: Toolbar = findViewById(R.id.toolbar)
-                setSupportActionBar(toolbar)
+            //háttérfolyamat
+            initializeTask = @SuppressLint("StaticFieldLeak")
+            object : InitializeTask(this) {
+                override fun onPostExecute(result: Boolean?) {
+                    super.onPostExecute(result)
 
-                //ez a menüsávnak a definiálása:
-                val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-                val navView: NavigationView = findViewById(R.id.nav_view)
-                val navController = findNavController(R.id.nav_host_fragment)
-                // Passing each menu ID as a set of Ids because each
-                // menu should be considered as top level destinations.
-                appBarConfiguration = AppBarConfiguration(
-                    setOf(
-                        R.id.nav_home, R.id.nav_filter, R.id.nav_archive,
-                        R.id.nav_settings
-                    ), drawerLayout
-                )
-                setupActionBarWithNavController(navController, appBarConfiguration)
-                navView.setupWithNavController(navController)
+                    //főoldal betöltése
+                    setContentView(R.layout.activity_main)
+                    val toolbar: Toolbar = findViewById(R.id.toolbar)
+                    setSupportActionBar(toolbar)
 
-            }
-        }
-        initializeTask.execute()
+                    //a cikkek számának checkolása
+                    if (gArticles.count() <= 400)
+                    {
+                        canSave = false
+                        Toast.makeText(applicationContext,"Hiba a cikkek betöltésével", Toast.LENGTH_SHORT).show()
+                    }
 
+                    //ez a menüsávnak a definiálása:
+                    val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+                    val navView: NavigationView = findViewById(R.id.nav_view)
+                    val navController = findNavController(R.id.nav_host_fragment)
+                    // Passing each menu ID as a set of Ids because each
+                    // menu should be considered as top level destinations.
+                    appBarConfiguration = AppBarConfiguration(
+                        setOf(
+                            R.id.nav_home, R.id.nav_filter, R.id.nav_archive,
+                            R.id.nav_settings
+                        ), drawerLayout
+                    )
+                    setupActionBarWithNavController(navController, appBarConfiguration)
+                    navView.setupWithNavController(navController)
 
-        /*
-    //beállítások betöltése
-        ModelPreferencesManager.with(this)
-        try
-        {
-            val saveFile = ModelPreferencesManager.get<SaveFile>("KEY_SAVE")!!
-            settings = saveFile.settings
-        }
-        catch (e: Exception) {
-            for (x in settings.checkBoxArray.indices) {
-                settings.checkBoxArray[x] = true
-            }
-        }
-
-    //cikkek beszerzése
-        val comm = Communicator()
-        try
-        {
-            //cikkek betöltése fájlból
-            var articles = mutableListOf<Article>()
-            val saveFile = ModelPreferencesManager.get<SaveFile>("KEY_SAVE")!!
-            val tArticles = saveFile.articles
-            println("Talált cikkek: " +tArticles.size)
-            println(tArticles[0]!!.title.rendered)
-            val nArticles = comm.loadArticles(10, forceLoad = true)
-            for (x in nArticles.indices)
-            {
-                if (nArticles[x].id != tArticles[0]!!.id) articles.add(nArticles[x])
-                else {break}
-            }
-            for (x in tArticles.indices)
-            {
-                articles.add(tArticles[x]!!)
-            }
-            gArticles=articles
-        }
-        catch (e: Exception)
-        {
-            println(e)
-            //cikkek első betöltése
-            var articles = mutableListOf<Article>()
-            var atEnd = false
-            var i = 0
-            while (!atEnd)      //addig fusson amíg talál új cikket
-            {
-                val tArticles = comm.loadArticles(settings.arNum, forceLoad = true,diff = i*settings.arNum)
-                if (tArticles.count() <= 0) { atEnd = true }
-                else {articles.addAll(tArticles)}
-                i++
-                println("i = $i, talát cikkek: ${tArticles.count()}")
-            }
-            gArticles=articles
-        }
-
-        val authors = comm.loadAuthors()
-
-    //írónevek és id-k összefésülése
-        for (x in gArticles.indices)
-            for (y in authors.indices)
-                {
-                    if (gArticles[x].author == authors[y].id)
-                            gArticles[x].authorName = authors[y].name
                 }
-*/
-        /*
-    //értesítés deklarálás
-        val cn = ComponentName(this,BackgroundScheduler::class.java)
-        val builder: JobInfo.Builder = JobInfo.Builder(129,cn)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            builder.setPeriodic(30*60*1000,1000) }
-        else
-        { builder.setPeriodic(30*60*1000) }
-        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-        builder.setPersisted(true)
-        val pBundle = PersistableBundle()
-        pBundle.putInt("ARTICLE_ID",gArticles[0].id)
-        builder.setExtras(pBundle)
-        jobInfo = builder.build()
-        jobScheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
-        if (settings.arNot)
-        { jobScheduler.schedule(jobInfo) }
-        else
-        { jobScheduler.cancel(129) }
+            }
+            initializeTask.execute()
 
-    //ez a menüsávnak a definiálása:
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_filter, R.id.nav_archive,
-                R.id.nav_settings
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-*/
+            wasChecked = true
+        }
+        else
+        {
+            setContentView(R.layout.activity_main)
+            val toolbar: Toolbar = findViewById(R.id.toolbar)
+            setSupportActionBar(toolbar)
+
+            //ez a menüsávnak a definiálása:
+            val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+            val navView: NavigationView = findViewById(R.id.nav_view)
+            val navController = findNavController(R.id.nav_host_fragment)
+            // Passing each menu ID as a set of Ids because each
+            // menu should be considered as top level destinations.
+            appBarConfiguration = AppBarConfiguration(
+                setOf(
+                    R.id.nav_home, R.id.nav_filter, R.id.nav_archive,
+                    R.id.nav_settings
+                ), drawerLayout
+            )
+            setupActionBarWithNavController(navController, appBarConfiguration)
+            navView.setupWithNavController(navController)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -183,6 +117,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+
 
         println("kiléptem")
         val aArticles = arrayOfNulls<Article>(gArticles.size)
@@ -206,10 +141,19 @@ class MainActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
-        val aArticles = arrayOfNulls<Article>(gArticles.size)
-        for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
-        println(aArticles.size)
-        val saveFile = SaveFile(settings,aArticles)
+        val saveFile: SaveFile
+        if (canSave) {
+            val aArticles = arrayOfNulls<Article>(gArticles.size)
+            for (x in gArticles.indices) {
+                aArticles[x] = gArticles[x]
+            }
+            println(aArticles.size)
+            saveFile = SaveFile(settings, aArticles)
+        }
+        else
+        {
+            saveFile = SaveFile(settings, null)
+        }
         ModelPreferencesManager.put(saveFile,"KEY_SAVE")
     }
 }
@@ -219,7 +163,7 @@ data class Settings(
     var arNot: Boolean = true,         //cikk értesítések on/off
     //egyéb értesítések ide...
 
-    var checkBoxArray: BooleanArray,
+    var checkBoxArray: BooleanArray, //az összes checkbox egyben
     //egyéb szűrő pontok ide
 
     var arNum: Int = 20              //betöltendő cikkek száma
@@ -249,7 +193,7 @@ data class Settings(
 
 data class SaveFile(
     val settings: Settings,
-    val articles: Array<Article?>
+    val articles: Array<Article?>?
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -258,14 +202,16 @@ data class SaveFile(
         other as SaveFile
 
         if (settings != other.settings) return false
-        if (!articles.contentEquals(other.articles)) return false
+        if (articles != null) {
+            if (other.articles?.let { articles.contentEquals(it) }!!) return false
+        }
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = settings.hashCode()
-        result = 31 * result + articles.contentHashCode()
+        result = 31 * result + articles!!.contentHashCode()
         return result
     }
 }

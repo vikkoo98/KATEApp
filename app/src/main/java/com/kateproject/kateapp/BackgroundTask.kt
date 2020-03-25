@@ -20,12 +20,12 @@ open class BackgroundExecute(val id: Int): AsyncTask<Void, Void, Article?>()
         return when {
             articles.isEmpty() -> {//ha nincs net pl.
                 println("hiba a letöltéssel")
-                Article(0, "", "", Packed("hiba a letöltéssel"), emptyList(), Packed(id.toString()), Packed(id.toString()), 0, "", emptyList())
+                null //Article(0, "", "", Packed("hiba a letöltéssel"), emptyList(), Packed(id.toString()), Packed(id.toString()), 0, "", emptyList())
             }
             id == 0 -> {//ha nincs id
 
                 println("nem megy át az id")
-                Article(0, "", "", Packed(articles[0].title.rendered), emptyList(), Packed("$id - ${articles[0]}"), Packed("$id - ${articles[0]}"), 0, "", emptyList())
+                null //Article(0, "", "", Packed(articles[0].title.rendered), emptyList(), Packed("$id - ${articles[0]}"), Packed("$id - ${articles[0]}"), 0, "", emptyList())
             }
             id != articles[0].id -> {//ha van új cikk
                 println("van új cikk")
@@ -33,10 +33,10 @@ open class BackgroundExecute(val id: Int): AsyncTask<Void, Void, Article?>()
             }
             id == articles[0].id -> {//ha nincs új cikk
                 println("nincs új cikk")
-                Article(0, "", "", Packed(articles[0].title.rendered), emptyList(), Packed("$id - ${articles[0]}"), Packed("$id - ${articles[0]}"), 0, "", emptyList())
+                null //Article(0, "", "", Packed(articles[0].title.rendered), emptyList(), Packed("$id - ${articles[0]}"), Packed("$id - ${articles[0]}"), 0, "", emptyList())
             }
             else -> //egyéb esetben
-                Article(0, "", "", Packed("de vagyok"), emptyList(), Packed("$id "), Packed("$id - ${articles[0]}"), 0, "", emptyList())
+                null //Article(0, "", "", Packed("de vagyok"), emptyList(), Packed("$id "), Packed("$id - ${articles[0]}"), 0, "", emptyList())
         }
     }
 }

@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             val tArticles = saveFile.articles
             println("Talált cikkek: " +tArticles.size)
             println(tArticles[0]!!.title.rendered)
-            val nArticles = comm.LoadArticles(10, forceLoad = true)
+            val nArticles = comm.loadArticles(10, forceLoad = true)
             for (x in nArticles.indices)
             {
                 if (nArticles[x].id != tArticles[0]!!.id) articles.add(nArticles[x])
@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             var i = 0
             while (!atEnd)      //addig fusson amíg talál új cikket
             {
-                val tArticles = comm.LoadArticles(settings.arNum, forceLoad = true,diff = i*settings.arNum)
+                val tArticles = comm.loadArticles(settings.arNum, forceLoad = true,diff = i*settings.arNum)
                 if (tArticles.count() <= 0) { atEnd = true }
                 else {articles.addAll(tArticles)}
                 i++
@@ -126,7 +126,7 @@ class MainActivity : AppCompatActivity() {
             gArticles=articles
         }
 
-        val authors = comm.LoadAuthors()
+        val authors = comm.loadAuthors()
 
     //írónevek és id-k összefésülése
         for (x in gArticles.indices)

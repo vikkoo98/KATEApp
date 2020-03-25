@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
                         println(query)
                         if (query != null)
                         {
-                            val articles = comm.SearchArticles(it,query)
+                            val articles = comm.searchArticles(it,query)
                             recyclerView.adapter = RecyclerAdapter(articles)
                         }
                         return true
@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
                         if (newText=="" || newText == null) { recyclerView.adapter = RecyclerAdapter(it) }
                         else
                         {
-                            val articles = comm.SearchArticles(it,newText)
+                            val articles = comm.searchArticles(it,newText)
                             recyclerView.adapter = RecyclerAdapter(articles)
                         }
                         return true

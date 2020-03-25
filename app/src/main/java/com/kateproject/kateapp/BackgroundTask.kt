@@ -15,7 +15,7 @@ open class BackgroundExecute(val id: Int): AsyncTask<Void, Void, Article?>()
 {
     override fun doInBackground(vararg p0: Void?): Article? {
         val comm = Communicator()
-        val articles = comm.LoadArticles(1, forceLoad = true)
+        val articles = comm.loadArticles(1, forceLoad = true)
 
         return when {
             articles.isEmpty() -> {//ha nincs net pl.

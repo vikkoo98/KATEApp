@@ -86,7 +86,7 @@ class SettingsFragment : Fragment() {
                 settings.allNot=switch1.isChecked
                 settings.arNot=switch2.isChecked
                 settings.arNum=articleNumBar.progress
-                //comm.LoadArticles(settings.arNum)
+                //comm.loadArticles(settings.arNum)
                 println(settings.arNum)
 
                 if (settings.arNot)

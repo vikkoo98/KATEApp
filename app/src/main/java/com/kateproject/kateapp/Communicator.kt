@@ -14,7 +14,7 @@ enum class MessageType {
 class Communicator
 {
     var tries = 10
-    fun LoadArticles(Count: Int,diff: Int=0, forceLoad: Boolean = false):List<Article>
+    fun loadArticles(Count: Int, diff: Int=0, forceLoad: Boolean = false):List<Article>
     {
         val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=$Count&offset=$diff"
         val request = Request.Builder().url(url).build()
@@ -156,7 +156,7 @@ class Communicator
         return articles
     }
 
-    fun LoadAuthors(count:Int = 50): List<Author>
+    fun loadAuthors(count:Int = 50): List<Author>
     {
 
         val url = "http://www.kate.hu/wp-json/wp/v2/users?per_page=$count"
@@ -196,7 +196,7 @@ class Communicator
         return authors
     }
 
-    fun SearchArticles(sourceArticles: List<Article>, query: String): List<Article>
+    fun searchArticles(sourceArticles: List<Article>, query: String): List<Article>
     {
         val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=50"
         val articles = mutableListOf<Article>()
@@ -210,7 +210,7 @@ class Communicator
         return articles
     }
 
-    fun FilterArticles(sourceArticles: List<Article>, types: List<ArticleType>): List<Article>
+    fun filterArticles(sourceArticles: List<Article>, types: List<ArticleType>): List<Article>
     {
           println(types)
           val articles = mutableListOf<Article>()

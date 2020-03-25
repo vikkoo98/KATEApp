@@ -40,7 +40,7 @@ class HomeViewModel: ViewModel() {
         if (settings.checkBoxArray[22]) {types.add(ArticleType.UNCATEGORIZED)}
         if (settings.checkBoxArray[23]) {types.add(ArticleType.VIDEO)}
 
-        value = comm.FilterArticles(gArticles,types)
+        value = comm.filterArticles(gArticles,types)
         /*listOf(
             Article(10,"2011-11-11","www.kamu.hu", Packed("elsocikk"), Packed("szoveg"), Packed("osszefoglalo"),410,"Bela"),
             Article(11,"2011-11-11","www.kamu.hu", Packed("masodikcikk"), Packed("szoveg"), Packed("osszefoglalo"),410,"Bela")

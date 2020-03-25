@@ -13,6 +13,7 @@ enum class MessageType {
 
 class Communicator
 {
+    var tries = 10
     fun LoadArticles(Count: Int,diff: Int=0, forceLoad: Boolean = false):List<Article>
     {
         val url = "http://www.kate.hu/wp-json/wp/v2/posts?per_page=$Count&offset=$diff"
@@ -22,7 +23,7 @@ class Communicator
 
         if (forceLoad) {
 
-            var numTries = 5
+            var numTries = tries
             while (numTries > 0)
             {
                 val countDownLatch = CountDownLatch(1)
@@ -89,7 +90,7 @@ class Communicator
         }
         else
         {
-            var numTries = 5
+            var numTries = tries
             while (numTries > 0)
             {
                 client.newCall(request).enqueue(object : Callback {
@@ -164,7 +165,7 @@ class Communicator
         val client = OkHttpClient()
 
 
-        var numTries = 5
+        var numTries = tries
         while (numTries > 0)
         {
             val countDownLatch = CountDownLatch(1)

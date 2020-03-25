@@ -1,11 +1,12 @@
 package com.kateproject.kateapp
 
+import android.annotation.SuppressLint
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -16,7 +17,6 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,17 +25,54 @@ class MainActivity : AppCompatActivity() {
         var settings = Settings(checkBoxArray = BooleanArray(24))
         lateinit var jobScheduler: JobScheduler
         lateinit var jobInfo: JobInfo
-
     }
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var initializeTask: InitializeTask
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.loading_screen) //először loading screen legyen
 
+        //setContentView(R.layout.activity_main)
+        //val toolbar: Toolbar = findViewById(R.id.toolbar)
+        //setSupportActionBar(toolbar)
+
+        //értesítés deklarálás
+
+        //háttérfolyamat
+        initializeTask = @SuppressLint("StaticFieldLeak")
+        object : InitializeTask(this) {
+            override fun onPostExecute(result: Boolean?) {
+                super.onPostExecute(result)
+
+                //főoldal betöltése
+                //setTheme(R.style.AppTheme)
+                setContentView(R.layout.activity_main)
+                val toolbar: Toolbar = findViewById(R.id.toolbar)
+                setSupportActionBar(toolbar)
+
+                //ez a menüsávnak a definiálása:
+                val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+                val navView: NavigationView = findViewById(R.id.nav_view)
+                val navController = findNavController(R.id.nav_host_fragment)
+                // Passing each menu ID as a set of Ids because each
+                // menu should be considered as top level destinations.
+                appBarConfiguration = AppBarConfiguration(
+                    setOf(
+                        R.id.nav_home, R.id.nav_filter, R.id.nav_archive,
+                        R.id.nav_settings
+                    ), drawerLayout
+                )
+                setupActionBarWithNavController(navController, appBarConfiguration)
+                navView.setupWithNavController(navController)
+
+            }
+        }
+        initializeTask.execute()
+
+
+        /*
     //beállítások betöltése
         ModelPreferencesManager.with(this)
         try
@@ -91,10 +128,22 @@ class MainActivity : AppCompatActivity() {
 
         val authors = comm.LoadAuthors()
 
+    //írónevek és id-k összefésülése
+        for (x in gArticles.indices)
+            for (y in authors.indices)
+                {
+                    if (gArticles[x].author == authors[y].id)
+                            gArticles[x].authorName = authors[y].name
+                }
+*/
+        /*
     //értesítés deklarálás
         val cn = ComponentName(this,BackgroundScheduler::class.java)
         val builder: JobInfo.Builder = JobInfo.Builder(129,cn)
-        builder.setPeriodic(30*60*1000)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            builder.setPeriodic(30*60*1000,1000) }
+        else
+        { builder.setPeriodic(30*60*1000) }
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
         builder.setPersisted(true)
         val pBundle = PersistableBundle()
@@ -106,14 +155,6 @@ class MainActivity : AppCompatActivity() {
         { jobScheduler.schedule(jobInfo) }
         else
         { jobScheduler.cancel(129) }
-
-    //írónevek és id-k összefésülése
-        for (x in gArticles.indices)
-            for (y in authors.indices)
-                {
-                    if (gArticles[x].author == authors[y].id)
-                            gArticles[x].authorName = authors[y].name
-                }
 
     //ez a menüsávnak a definiálása:
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -129,7 +170,7 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
+*/
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -152,11 +193,6 @@ class MainActivity : AppCompatActivity() {
         println(aArticles.size)
         val saveFile = SaveFile(settings,aArticles)
         ModelPreferencesManager.put(saveFile,"KEY_SAVE")
-
-        val sharedPreference =  getSharedPreferences("SAVE_PREF",Context.MODE_MULTI_PROCESS)
-        val editor = sharedPreference.edit()
-        editor.putInt("LAST_ARTICLE", gArticles[0].id)
-        editor.apply()
     }
 
     override fun onStop() {
@@ -168,11 +204,6 @@ class MainActivity : AppCompatActivity() {
         println(aArticles.size)
         val saveFile = SaveFile(settings,aArticles)
         ModelPreferencesManager.put(saveFile,"KEY_SAVE")
-
-        val sharedPreference =  getSharedPreferences("SAVE_PREF",Context.MODE_PRIVATE)
-        val editor = sharedPreference.edit()
-        editor.putInt("LAST_ARTICLE", gArticles[0].id)
-        editor.apply()
     }
 
     override fun onPause() {
@@ -183,11 +214,6 @@ class MainActivity : AppCompatActivity() {
         println(aArticles.size)
         val saveFile = SaveFile(settings,aArticles)
         ModelPreferencesManager.put(saveFile,"KEY_SAVE")
-
-        val sharedPreference =  getSharedPreferences("SAVE_PREF",Context.MODE_PRIVATE)
-        val editor = sharedPreference.edit()
-        editor.putInt("LAST_ARTICLE", gArticles[0].id)
-        editor.apply()
     }
 }
 

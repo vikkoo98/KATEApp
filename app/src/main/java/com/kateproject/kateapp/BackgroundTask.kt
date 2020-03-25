@@ -8,7 +8,6 @@ import android.content.Context
 import android.os.AsyncTask
 import android.os.Build
 import android.text.Html
-import com.kateproject.kateapp.MainActivity.Companion.gArticles
 
 
 //ez végzi a cikk megtalálását
@@ -37,7 +36,7 @@ open class BackgroundExecute(val id: Int): AsyncTask<Void, Void, Article?>()
                 Article(0, "", "", Packed(articles[0].title.rendered), emptyList(), Packed("$id - ${articles[0]}"), Packed("$id - ${articles[0]}"), 0, "", emptyList())
             }
             else -> //egyéb esetben
-                null
+                Article(0, "", "", Packed("de vagyok"), emptyList(), Packed("$id "), Packed("$id - ${articles[0]}"), 0, "", emptyList())
         }
     }
 }
@@ -60,6 +59,8 @@ class BackgroundScheduler: JobService() {
         val id = pBundle?.getInt("ARTICLE_ID") ?: 0
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationTask = NotificationTask("com.kateproject.kateapp", "Általános értesítések" ,this,notificationManager)
+
+        println("de, ide is eljutottam")
 
         backgroundExecute = @SuppressLint("StaticFieldLeak")
         object : BackgroundExecute(id) {

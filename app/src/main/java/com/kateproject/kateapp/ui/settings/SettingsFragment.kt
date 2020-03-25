@@ -31,6 +31,9 @@ class SettingsFragment : Fragment() {
 
         settingsViewModel.text.observe(this, Observer {
 
+            articleNumBar.isEnabled=false
+            articleNum.isEnabled=false
+
             //létrehozáskor a jelenlegi állapot betöltése
             articleNum.setText(settings.arNum.toString())
             articleNumBar.progress=settings.arNum

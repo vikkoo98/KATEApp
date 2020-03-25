@@ -58,7 +58,7 @@ open class InitializeTask( private val mainActivity: MainActivity): AsyncTask <V
             var i = 0
             while (!atEnd)      //addig fusson amíg talál új cikket
             {
-                val tArticles = comm.loadArticles(MainActivity.settings.arNum, forceLoad = true,diff = i* MainActivity.settings.arNum)
+                val tArticles = comm.loadArticles(100, forceLoad = true,diff = i* 100)
                 if (tArticles.count() <= 0) { atEnd = true }
                 else {articles.addAll(tArticles)}
                 i++

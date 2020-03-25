@@ -8,6 +8,7 @@ import android.content.Context
 import android.os.AsyncTask
 import android.os.PersistableBundle
 import android.os.Process.*
+import kotlinx.android.synthetic.main.loading_screen.*
 import java.lang.Exception
 
 @SuppressLint("StaticFieldLeak")

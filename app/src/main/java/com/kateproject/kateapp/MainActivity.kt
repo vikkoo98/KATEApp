@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
 import android.widget.Toast
+import kotlinx.android.synthetic.main.loading_screen.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,6 +44,8 @@ class MainActivity : AppCompatActivity() {
             //értesítés deklarálás
 
             //háttérfolyamat
+            textLoading.text = "   Betöltés...\n (az első betöltés hosszabb lehet)"
+
             initializeTask = @SuppressLint("StaticFieldLeak")
             object : InitializeTask(this) {
                 override fun onPostExecute(result: Boolean?) {

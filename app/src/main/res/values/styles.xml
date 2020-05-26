@@ -11,8 +11,10 @@
         <item name="android:textColorPrimary">@color/textDark</item>
         <item name="android:textColorSecondary">@color/textDarkSecondary</item>
         <item name="colorBackgroundFloating">@color/backgroundColor</item>
-        <item name="colorControlHighlight">@color/ColorAccent</item>
+        <item name="colorControlActivated">@color/ColorAccent</item>
         <item name="android:editTextColor">@color/textLight</item>
+        <item name="colorControlHighlight">@color/colorPrimaryLight</item>
+
     </style>
 
     <!-- Dark mode theme -->
@@ -21,6 +23,7 @@
         <item name="colorAccent">@color/ColorAccent2</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark2</item>
         <item name="colorPrimary">@color/ColorPrimary2</item>
+        <item name="colorControlNormal">@color/colorPrimaryLight</item>
         <item name="colorButtonNormal">@color/ColorAccent2</item>
         <item name="android:textColor">@color/textLight2</item>
         <item name="android:textColorPrimary">@color/textDark2</item>
@@ -28,6 +31,7 @@
         <item name="colorBackgroundFloating">@color/backgroundColor2</item>
         <item name="colorControlHighlight">@color/ColorAccent2</item>
         <item name="android:editTextColor">@color/textLight2</item>
+        <item name="colorControlActivated">@color/colorPrimaryLight2</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppBaseTheme">

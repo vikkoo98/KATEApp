@@ -21,8 +21,8 @@
         android:background="?attr/colorBackgroundFloating"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:itemIconTint="?android:attr/textColorSecondary"
-        app:itemTextColor="?android:attr/textColorSecondary"
+        app:itemIconTint="?android:attr/textColorPrimary"
+        app:itemTextColor="?android:attr/textColorPrimary"
         app:menu="@menu/activity_main_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

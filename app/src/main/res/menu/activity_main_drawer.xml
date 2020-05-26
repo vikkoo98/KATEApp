@@ -11,21 +11,18 @@
         <item
             android:id="@+id/nav_filter"
             android:icon="@drawable/ic_filter"
-            android:title="@string/menu_filter" />
+            android:title="@string/menu_filter"/>
         <item
             android:id="@+id/nav_archive"
             android:icon="@drawable/ic_archive"
             android:title="@string/menu_archive" />
-
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/menu_settings" />
+        <item
+            android:id="@+id/nav_styles"
+            android:icon="@drawable/ic_format_paint_black_24dp"
+            android:title="@string/menu_styles" />
     </group>
-
-    <item android:title="@string/personalise">
-        <menu>
-            <item
-                android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="@string/menu_settings" />
-        </menu>
-    </item>
-
 </menu>

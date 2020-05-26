@@ -1,19 +1,50 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/ColorAccent</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark</item>
+        <item name="colorPrimary">@color/ColorPrimary</item>
+        <item name="colorButtonNormal">@color/ColorAccent</item>
+        <item name="android:textColor">@color/textLight</item>
+        <item name="android:textColorPrimary">@color/textDark</item>
+        <item name="android:textColorSecondary">@color/textDarkSecondary</item>
+        <item name="colorBackgroundFloating">@color/backgroundColor</item>
+        <item name="colorControlHighlight">@color/ColorAccent</item>
+        <item name="android:editTextColor">@color/textLight</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
+    <!-- Dark mode theme -->
+    <style name="AppDarkModeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/ColorAccent2</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark2</item>
+        <item name="colorPrimary">@color/ColorPrimary2</item>
+        <item name="colorButtonNormal">@color/ColorAccent2</item>
+        <item name="android:textColor">@color/textLight2</item>
+        <item name="android:textColorPrimary">@color/textDark2</item>
+        <item name="android:textColorSecondary">@color/textDarkSecondary2</item>
+        <item name="colorBackgroundFloating">@color/backgroundColor2</item>
+        <item name="colorControlHighlight">@color/ColorAccent2</item>
+        <item name="android:editTextColor">@color/textLight2</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppBaseTheme">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="ArticleTheme" parent="AppTheme">
+    <style name="ArticleTheme" parent="AppBaseTheme">
+        <item name="android:homeAsUpIndicator">@drawable/back_button_image</item>
+    </style>
+
+    <style name="AppDarkModeTheme.NoActionBar" parent="AppDarkModeTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ArticleDarkTheme" parent="AppDarkModeTheme">
         <item name="android:homeAsUpIndicator">@drawable/back_button_image</item>
     </style>
 

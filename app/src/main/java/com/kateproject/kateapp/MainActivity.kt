@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var gArticles: List<Article> = emptyList()
         var settings = Settings(checkBoxArray = BooleanArray(24))
-        lateinit var jobScheduler: JobScheduler
-        lateinit var jobInfo: JobInfo
-        var wasChecked = false
-        var canSave = true
+        lateinit var jobScheduler: JobScheduler //háttérfolyamathoz
+        lateinit var jobInfo: JobInfo //háttérfolyamathoz
+        var wasChecked = false //hogy ne töltse be a dolgokat mindig ha a főoldalra megyünk
+        var canSave = true //ha valamiért nem találta meg az összes cikket, akkor inkább ne mentsen el...
     }
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var initializeTask: InitializeTask
@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
             appBarConfiguration = AppBarConfiguration(
                 setOf(
                     R.id.nav_home, R.id.nav_filter, R.id.nav_archive,
-                    R.id.nav_settings
+                    R.id.nav_settings, R.id.nav_styles
                 ), drawerLayout
             )
             setupActionBarWithNavController(navController, appBarConfiguration)

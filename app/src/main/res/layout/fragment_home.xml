@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackgroundFloating">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/article_rec_view"
@@ -17,10 +18,10 @@
 
     <SearchView
         android:id="@+id/searchBar"
-        android:queryHint="keresés a címben"
         android:layout_width="0dp"
         android:layout_height="46dp"
-        android:background="#CECECE"
+        android:background="?attr/colorAccent"
+        android:queryHint="keresés a címben"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"

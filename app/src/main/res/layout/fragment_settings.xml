@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackgroundFloating">
 
     <Switch
         android:id="@+id/switch1"
@@ -14,6 +15,8 @@
         android:layout_marginEnd="8dp"
         android:checked="true"
         android:text="Értesítések"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textColorLink="@color/ColorAccent"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +30,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:checked="true"
-        android:text="Cikk értesítések"
+        android:text="Cikkek"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -42,7 +46,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:checked="true"
-        android:text="Valami más"
+        android:text="Események"
+        android:textColor="?android:attr/textColorSecondary"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -68,6 +73,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Betöltött cikkek száma ( 0 = folyamatos)"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textColorLink="?android:attr/textColorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -81,6 +88,7 @@
         android:ems="10"
         android:inputType="number"
         android:textAlignment="center"
+        android:textColor="?android:attr/textColorSecondary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
         tools:text="20" />

@@ -60,8 +60,6 @@ class BackgroundScheduler: JobService() {
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationTask = NotificationTask("com.kateproject.kateapp", "Általános értesítések" ,this,notificationManager)
 
-        println("de, ide is eljutottam")
-
         backgroundExecute = @SuppressLint("StaticFieldLeak")
         object : BackgroundExecute(id) {
 

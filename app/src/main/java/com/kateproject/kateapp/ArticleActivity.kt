@@ -20,12 +20,12 @@ class ArticleActivity : AppCompatActivity() {
         val date = intent.getStringExtra("date")
         setContentView(R.layout.activity_article)
 
-        supportActionBar!!.title = title
+        supportActionBar!!.title = "KÁTÉ"
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
         {
-            titleText.text = Html.fromHtml(title,Html.FROM_HTML_MODE_COMPACT)
+            titleText.text = Html.fromHtml(title,Html.FROM_HTML_MODE_COMPACT).toString()
         }
         else
         {
@@ -34,7 +34,7 @@ class ArticleActivity : AppCompatActivity() {
 
         authortext.text=author
         if (date != null)
-            dateText.text=date.replaceAfter('T',"").replace('-',' ').replace('T',' ')
+            dateText.text=date.replaceAfter('T',"").replace("-",". ").replace("T",". ")
 
 
 

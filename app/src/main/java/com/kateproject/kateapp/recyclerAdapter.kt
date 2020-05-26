@@ -26,26 +26,28 @@ class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapte
             holder.view.textViewTitle.text = Html.fromHtml(article.title.rendered, Html.FROM_HTML_MODE_COMPACT)
             holder.view.textViewExc.text = Html.fromHtml(article.excerpt.rendered, Html.FROM_HTML_MODE_COMPACT)
             holder.view.textViewAut.text = Html.fromHtml(article.authorName, Html.FROM_HTML_MODE_COMPACT)
-            holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace('-',' ').replace('T',' '), Html.FROM_HTML_MODE_COMPACT)
+            holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace("-",". ").replace("T",". "), Html.FROM_HTML_MODE_COMPACT)
         } else {
             holder.view.textViewTitle.text = Html.fromHtml(article.title.rendered)
             holder.view.textViewExc.text = Html.fromHtml(article.excerpt.rendered)
             holder.view.textViewAut.text = Html.fromHtml(article.authorName)
-            holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace('-',' ').replace('T',' '))
+            holder.view.textViewDate.text = Html.fromHtml(article.date.replaceAfter('T',"").replace("-",". ").replace("T",". "))
         }
         holder.view.textView2.text = article.tipus.toString()
 
         if (article.tipus.contains(ArticleType.CIKK))
         {
-            holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.cikk))
+            //holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.cikk))
+            holder.view.backgroundColor.backgroundTintList = holder.view.context.resources.getColorStateList(R.color.ColorHir)
         }
         else if (article.tipus.contains(ArticleType.INTERJU))
         {
-            holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.interju))
+            //holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.drawable.interju))
+            holder.view.backgroundColor.backgroundTintList = holder.view.context.resources.getColorStateList(R.color.ColorInterju)
         }
         else
         {
-            holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.mipmap.ic_launcher_round))
+            //holder.view.imageView3.setImageDrawable(holder.view.context.getDrawable(R.mipmap.ic_launcher_round))
         }
 
         holder.view.setOnClickListener {

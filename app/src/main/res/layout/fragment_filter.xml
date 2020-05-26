@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorBackgroundFloating"
+    android:orientation="vertical"
+    app:layout_scrollFlags="enterAlwaysCollapsed">
 
     <TextView
         android:id="@+id/text_filter"
@@ -13,286 +16,261 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="?android:attr/textColorSecondary"
+        android:textColorLink="?attr/colorAccent"
+        android:textSize="20sp" />
 
-    <CheckBox
-        android:id="@+id/checkBoxArticle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Cikk"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_filter" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <CheckBox
-        android:id="@+id/checkBoxInterview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Interjú"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxNews" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:isScrollContainer="true"
+            android:orientation="vertical">
 
-    <CheckBox
-        android:id="@+id/checkBoxLife"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Egyetemi élet"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxArticle" />
+            <CheckBox
+                android:id="@+id/checkBoxArticle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Cikk"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxEdu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Oktatás"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxLife" />
+            <CheckBox
+                android:id="@+id/checkBoxInterview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Interjú"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxComp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Verseny"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxEdu" />
+            <CheckBox
+                android:id="@+id/checkBoxLife"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Egyetemi élet"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxKATV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="KÁTV"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxInterview" />
+            <CheckBox
+                android:id="@+id/checkBoxEdu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Oktatás"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxNews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Hírek"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxComp" />
+            <CheckBox
+                android:id="@+id/checkBoxComp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Verseny"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxKepRiport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Képriport"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxKATV" />
+            <CheckBox
+                android:id="@+id/checkBoxKATV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="KÁTV"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxCulture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Kultúra, szórakozás"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxKepRiport" />
+            <CheckBox
+                android:id="@+id/checkBoxNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Hírek"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxExhib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Kiállítás"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxCulture" />
+            <CheckBox
+                android:id="@+id/checkBoxKepRiport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Képriport"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:duplicateParentState="true"
-        android:text="Könyv"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxExhib" />
+            <CheckBox
+                android:id="@+id/checkBoxCulture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Kultúra, szórakozás"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxCinema"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Mozi"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxBook" />
+            <CheckBox
+                android:id="@+id/checkBoxExhib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Kiállítás"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxSport"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Sport"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxCinema" />
+            <CheckBox
+                android:id="@+id/checkBoxBook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:duplicateParentState="true"
+                android:text="Könyv"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxTheater"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Színház"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxSport" />
+            <CheckBox
+                android:id="@+id/checkBoxCinema"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Mozi"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="5dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_filter" />
+            <CheckBox
+                android:id="@+id/checkBoxSport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Sport"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxMusic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Zene"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxTheater" />
+            <CheckBox
+                android:id="@+id/checkBoxTheater"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Színház"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxPalyazat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Pályázat"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/text_filter" />
+            <CheckBox
+                android:id="@+id/checkBoxMusic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Zene"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxProgram"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Program"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxPalyazat" />
+            <CheckBox
+                android:id="@+id/checkBoxPalyazat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Pályázat"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxFest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Fesztivál"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxProgram" />
+            <CheckBox
+                android:id="@+id/checkBoxProgram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Program"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxConcert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Koncert"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxFest" />
+            <CheckBox
+                android:id="@+id/checkBoxFest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Fesztivál"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxParty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Party"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxConcert" />
+            <CheckBox
+                android:id="@+id/checkBoxConcert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Koncert"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxRhely"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="R-hely"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxParty" />
+            <CheckBox
+                android:id="@+id/checkBoxParty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Party"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxNoCom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="No Komment"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxRhely" />
+            <CheckBox
+                android:id="@+id/checkBoxRhely"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="R-hely"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxUncat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Uncategorized"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxNoCom" />
+            <CheckBox
+                android:id="@+id/checkBoxNoCom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="No Komment"
+                android:textColor="?android:attr/textColorSecondary" />
 
-    <CheckBox
-        android:id="@+id/checkBoxVideo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:checked="true"
-        android:text="Videó"
-        app:layout_constraintStart_toEndOf="@+id/divider2"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxUncat" />
+            <CheckBox
+                android:id="@+id/checkBoxUncat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Uncategorized"
+                android:textColor="?android:attr/textColorSecondary" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <CheckBox
+                android:id="@+id/checkBoxVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:checked="true"
+                android:text="Videó"
+                android:textColor="?android:attr/textColorSecondary" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

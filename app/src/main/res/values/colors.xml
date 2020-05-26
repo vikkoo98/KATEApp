@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#252525</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#8B2100</color>
+    <!--alapstilus szinek-->
+    <color name="ColorAccent">#005349</color> <!-- főszín -->
+    <color name="ColorPrimary">#02021B</color> <!-- főszín 2 -->
+    <color name="ColorPrimaryDark">#000000</color> <!-- az értesítési sáv színe -->
+    <color name="textLight">#D3D3FF</color> <!-- világos szöveg -->
+    <color name="textDark">#001B5E</color> <!-- világosabb sötét szöveg -->
+    <color name="textDarkSecondary">#000036</color> <!-- sötét szöveg -->
+    <color name="backgroundColor">#FFFDF8</color> <!-- háttérszín -->
+
+    <!--darkmode szinek-->
+    <color name="ColorAccent2">#1C2C97</color> <!-- főszín -->
+    <color name="ColorPrimary2">#000000</color> <!-- főszín 2 -->
+    <color name="ColorPrimaryDark2">#000000</color> <!-- az értesítési sáv színe -->
+    <color name="textLight2">#D3D3FF</color> <!-- világos szöveg -->
+    <color name="textDark2">#EDF3FF</color> <!-- világosabb sötét szöveg -->
+    <color name="textDarkSecondary2">#D5D5FF</color> <!-- sötét szöveg -->
+    <color name="backgroundColor2">#111416</color> <!-- háttérszín -->
+
+    <!--cikktipus szinek-->
+    <color name="ColorDefault">#616161</color>
+    <color name="ColorHir">#3D4BE2</color>
+    <color name="ColorInterju">#AA753D</color>
+    <color name="ColorKultura">#D10000</color>
+    <color name="ColorProgram">#8A8500</color>
+    <color name="ColorElet">#8600FF</color>
 </resources>

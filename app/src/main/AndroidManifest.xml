@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/kate"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppBaseTheme"
         android:usesCleartextTraffic="true"
                                         tools:ignore="GoogleAppIndexingWarning"
 
@@ -23,7 +23,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppBaseTheme.NoActionBar"
             android:screenOrientation = "portrait">
 
             <intent-filter>

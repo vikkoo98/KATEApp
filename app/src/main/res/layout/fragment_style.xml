@@ -19,6 +19,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/round_outline2"
+            android:backgroundTint="@color/ColorDefault"
+            android:elevation="8dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -29,8 +36,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Alapértelmezett"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:text="Kázmér"
+                android:textColor="?android:attr/textColor"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/imageView8"
@@ -92,6 +100,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/round_outline2"
+            android:backgroundTint="@color/ColorDefault"
+            android:elevation="8dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -103,7 +118,8 @@
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 android:text="Bagoly"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textColor="?android:attr/textColor"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/imageView9"
@@ -164,6 +180,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/round_outline2"
+            android:backgroundTint="@color/ColorDefault"
+            android:elevation="8dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -174,8 +197,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Neptun"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:text="Zöldes"
+                android:textColor="?android:attr/textColor"
+                android:textSize="18sp" />
 
             <ImageView
                 android:id="@+id/imageView13"
@@ -236,6 +260,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/round_outline2"
+            android:backgroundTint="@color/ColorDefault"
+            android:elevation="8dp"
             android:orientation="horizontal">
 
             <RadioButton
@@ -246,16 +277,19 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:text="Színes"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:text="Neptun"
+                android:textColor="?android:attr/textColor"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/button3"
-        android:layout_width="117dp"
-        android:layout_height="61dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="Mentés"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -13,6 +13,7 @@ data class Article(
     val content: Packed,    //tartalom
     val excerpt: Packed,    //összefoglaló
     val author: Int,        //szerző kód
+    var new: Boolean = false,
     var authorName: String = "noAuthor",  //szerzőnév
     var tipus: List<ArticleType> //cikk típusa
 )

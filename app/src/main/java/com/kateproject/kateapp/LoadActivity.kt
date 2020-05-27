@@ -41,7 +41,10 @@ open class InitializeTask( private val mainActivity: MainActivity): AsyncTask <V
             val nArticles = comm.loadArticles(10, forceLoad = true)
             for (x in nArticles.indices)
             {
-                if (nArticles[x].id != tArticles[0]!!.id) articles.add(nArticles[x])
+                if (nArticles[x].id != tArticles[0]!!.id) {
+                    nArticles[x].new = true
+                    articles.add(nArticles[x])
+                }
                 else {break}
             }
             for (x in tArticles.indices)
@@ -65,6 +68,10 @@ open class InitializeTask( private val mainActivity: MainActivity): AsyncTask <V
                 i++
                 println("i = $i, talát cikkek: ${tArticles.count()}")
             }
+            for (x: Int in 0..4)
+                try {
+                    articles[x].new = true
+                } catch (e: Exception) {}
             MainActivity.gArticles =articles
         }
 

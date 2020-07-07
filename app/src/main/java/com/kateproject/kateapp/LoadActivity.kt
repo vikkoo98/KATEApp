@@ -11,6 +11,14 @@ import android.os.Process.*
 import kotlinx.android.synthetic.main.loading_screen.*
 import java.lang.Exception
 
+/*-------------------------------------------------------
+---------------------------------------------------------
+Nem szerencsés a neve, ez az aszinkron folyamat indítja a
+cikk betöltést, és ez hozza létre az értesítést, amíg a
+töltőképernyő látszik.
+---------------------------------------------------------
+---------------------------------------------------------*/
+
 @SuppressLint("StaticFieldLeak")
 open class InitializeTask( private val mainActivity: MainActivity): AsyncTask <Void, Void, Boolean>() { //ez itt sír valamiért
     override fun doInBackground(vararg params: Void?): Boolean {
@@ -21,6 +29,7 @@ open class InitializeTask( private val mainActivity: MainActivity): AsyncTask <V
         {
             val saveFile = ModelPreferencesManager.get<SaveFile>("KEY_SAVE")!!
             MainActivity.settings = saveFile.settings
+            MainActivity.settings.theme = MainActivity.settings.theme ?: ThemeType.BASE //ez hazudik, valahogy mégis null lesz!
         }
         catch (e: Exception) {
             for (x in MainActivity.settings.checkBoxArray.indices) {

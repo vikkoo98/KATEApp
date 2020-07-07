@@ -11,9 +11,9 @@
     <color name="backgroundColor">#F4FBFD</color> <!-- háttérszín -->
 
     <!--darkmode szinek-->
-    <color name="ColorAccent2">#609400</color> <!-- főszín -->
+    <color name="ColorAccent2">#4C7500</color> <!-- főszín -->
     <color name="ColorPrimary2">#000000</color> <!-- főszín 2 -->
-    <color name="colorPrimaryLight2">#223029</color> <!-- világos főszín -->
+    <color name="colorPrimaryLight2">#222230</color> <!-- világos főszín -->
     <color name="ColorPrimaryDark2">#000000</color> <!-- az értesítési sáv színe -->
     <color name="textLight2">#D3D3FF</color> <!-- világos szöveg -->
     <color name="textDark2">#EDF3FF</color> <!-- világosabb sötét szöveg -->
@@ -23,9 +23,9 @@
     <!--zölt stilus szinek-->
     <color name="ColorAccent3">#007C6E</color> <!-- főszín -->
     <color name="ColorPrimary3">#003128</color> <!-- főszín 2 -->
-    <color name="colorPrimaryLight3">#98B8A6</color> <!-- világos főszín -->
+    <color name="colorPrimaryLight3">#D3D3D3</color> <!-- világos főszín -->
     <color name="ColorPrimaryDark3">#000F07</color> <!-- az értesítési sáv színe -->
-    <color name="textLight3">#D3D3FF</color> <!-- világos szöveg -->
+    <color name="textLight3">#F0F0FF</color> <!-- világos szöveg -->
     <color name="textDark3">#003C23</color> <!-- világosabb sötét szöveg -->
     <color name="textDarkSecondary3">#00361A</color> <!-- sötét szöveg -->
     <color name="backgroundColor3">#FFFDF8</color> <!-- háttérszín -->

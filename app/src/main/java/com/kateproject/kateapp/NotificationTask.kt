@@ -7,6 +7,12 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 
+
+/*-------------------------------------------------------
+---------------------------------------------------------
+Ez a class intézi az értesítéseket
+---------------------------------------------------------
+---------------------------------------------------------*/
 class NotificationTask(private val channelID: String, private val description: String, private val context: Context, private val notificationManager: NotificationManager) {
     companion object {
         var ID = 0

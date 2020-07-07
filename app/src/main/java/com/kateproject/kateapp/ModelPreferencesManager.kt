@@ -7,6 +7,11 @@ import com.kateproject.kateapp.MainActivity
  * Singleton class for managing preferences for POJO or model class's object.
  * Only the fields are stored. Functions, Inner classes, Nested classes and inner interfaces are not stored. * @author Malwinder Singh * medium.com/@dev.malwinder
  */
+/*-------------------------------------------------------
+---------------------------------------------------------
+Nem nyúltam hozzá, valahonnan szereztem...
+---------------------------------------------------------
+---------------------------------------------------------*/
 object ModelPreferencesManager {
 
     //Shared Preference field used to save and retrieve JSON string

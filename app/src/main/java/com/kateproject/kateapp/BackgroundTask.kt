@@ -10,7 +10,14 @@ import android.os.Build
 import android.text.Html
 
 
-//ez végzi a cikk megtalálását
+/*-------------------------------------------------------
+---------------------------------------------------------
+Háttérfolyamat, ami arra hivatott, hogy
+ellenőrizze, hogy van-e új cikk a KÁTÉ weboldalon.
+Az utolsó cikket betölti, és összeveti az ID-jét azzal,
+amit megkap a BackgroundScheduler-től.
+---------------------------------------------------------
+---------------------------------------------------------*/
 open class BackgroundExecute(val id: Int): AsyncTask<Void, Void, Article?>()
 {
     override fun doInBackground(vararg p0: Void?): Article? {
@@ -41,7 +48,14 @@ open class BackgroundExecute(val id: Int): AsyncTask<Void, Void, Article?>()
     }
 }
 
-//ez jeleníti meg értesítésként
+
+/*-------------------------------------------------------
+---------------------------------------------------------
+Egy időnként lefutó folyamat, arra hivatott, hogy meghívja
+a BackgroundExecute-ot, és ha az új cikket ad vissza, azt
+Notification-ként megjelenítse a user-nek.
+---------------------------------------------------------
+---------------------------------------------------------*/
 class BackgroundScheduler: JobService() {
 
     private lateinit var backgroundExecute: BackgroundExecute

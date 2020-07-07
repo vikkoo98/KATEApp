@@ -29,7 +29,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/defaultStyle"
+                android:id="@+id/baseStyle"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -110,7 +110,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/nightStyle"
+                android:id="@+id/darkStyle"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -190,7 +190,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/neptunStyle"
+                android:id="@+id/thirdStyle"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -270,13 +270,14 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/colorStyle"
+                android:id="@+id/neptunStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:text="Neptun"
                 android:textColor="?android:attr/textColor"
                 android:textSize="18sp" />
@@ -285,7 +286,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonApply"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

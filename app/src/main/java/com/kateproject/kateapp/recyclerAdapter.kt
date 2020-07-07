@@ -9,6 +9,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.row_layout1.view.*
 
+/*-------------------------------------------------------
+---------------------------------------------------------
+A főoldalon a cikkek listájának kezelését végzi ez a class,
+megjeleníti őket egymás után, kattintásra megnyitja az adott
+cikk AricleActivity-jét.
+Hozzá tartozik: row_layout1.xml
+---------------------------------------------------------
+---------------------------------------------------------*/
+
 class RecyclerAdapter(private val articles: List<Article>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
 

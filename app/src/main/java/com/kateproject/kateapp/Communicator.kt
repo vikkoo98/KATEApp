@@ -7,10 +7,27 @@ import java.util.concurrent.CountDownLatch
 import com.kateproject.kateapp.MainActivity.Companion.gArticles
 import java.lang.Exception
 
+
+
+/*-------------------------------------------------------
+---------------------------------------------------------
+Ez nincs használva, az lenne az ötlet, hogy a felhasználó
+küld egy üzenetet, az app dönti el hogy hogy/hova küldi.
+---------------------------------------------------------
+---------------------------------------------------------*/
 enum class MessageType {
     BUG, KATE, ARTICLE
 }
 
+
+
+/*-------------------------------------------------------
+---------------------------------------------------------
+Extrém túlbonyolított, gyakorlatilag függvények gyűjteménye
+ez szedi le netről a cikkeket, meg a cikkírókat. Itt vannak
+a kereső függvények is.
+---------------------------------------------------------
+---------------------------------------------------------*/
 class Communicator
 {
     private var tries = 10

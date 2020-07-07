@@ -23,15 +23,29 @@
         <item name="colorAccent">@color/ColorAccent2</item>
         <item name="colorPrimaryDark">@color/ColorPrimaryDark2</item>
         <item name="colorPrimary">@color/ColorPrimary2</item>
-        <item name="colorControlNormal">@color/colorPrimaryLight</item>
         <item name="colorButtonNormal">@color/ColorAccent2</item>
         <item name="android:textColor">@color/textLight2</item>
         <item name="android:textColorPrimary">@color/textDark2</item>
         <item name="android:textColorSecondary">@color/textDarkSecondary2</item>
         <item name="colorBackgroundFloating">@color/backgroundColor2</item>
-        <item name="colorControlHighlight">@color/ColorAccent2</item>
+        <item name="colorControlActivated">@color/ColorAccent2</item>
         <item name="android:editTextColor">@color/textLight2</item>
-        <item name="colorControlActivated">@color/colorPrimaryLight2</item>
+        <item name="colorControlHighlight">@color/colorPrimaryLight2</item>
+    </style>
+
+    <style name="AppThirdModeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorAccent">@color/ColorAccent3</item>
+        <item name="colorPrimaryDark">@color/ColorPrimaryDark3</item>
+        <item name="colorPrimary">@color/ColorPrimary3</item>
+        <item name="colorButtonNormal">@color/ColorAccent3</item>
+        <item name="android:textColor">@color/textLight3</item>
+        <item name="android:textColorPrimary">@color/textDark3</item>
+        <item name="android:textColorSecondary">@color/textDarkSecondary3</item>
+        <item name="colorBackgroundFloating">@color/backgroundColor3</item>
+        <item name="colorControlActivated">@color/ColorAccent3</item>
+        <item name="android:editTextColor">@color/textLight3</item>
+        <item name="colorControlHighlight">@color/colorPrimaryLight3</item>
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppBaseTheme">
@@ -52,6 +66,14 @@
         <item name="android:homeAsUpIndicator">@drawable/back_button_image</item>
     </style>
 
+    <style name="AppThirdModeTheme.NoActionBar" parent="AppThirdModeTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="ArticleThirdTheme" parent="AppThirdModeTheme">
+        <item name="android:homeAsUpIndicator">@drawable/back_button_image</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

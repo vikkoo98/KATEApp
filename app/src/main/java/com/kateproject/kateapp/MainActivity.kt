@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var initializeTask: InitializeTask
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -52,12 +53,19 @@ class MainActivity : AppCompatActivity() {
                     super.onPostExecute(result)
 
                     //főoldal betöltése
+                    when (settings.theme) //a témát itt állítja be
+                    {
+                        ThemeType.BASE -> theme.applyStyle(R.style.AppBaseTheme_NoActionBar,true)
+                        ThemeType.DARK -> theme.applyStyle(R.style.AppDarkModeTheme_NoActionBar,true)
+                        ThemeType.THEME3 -> theme.applyStyle(R.style.AppThirdModeTheme_NoActionBar,true)
+                        ThemeType.NEPTUN -> theme.applyStyle(R.style.AppBaseTheme_NoActionBar,true)
+                    }
                     setContentView(R.layout.activity_main)
                     val toolbar: Toolbar = findViewById(R.id.toolbar)
                     setSupportActionBar(toolbar)
 
                     //a cikkek számának checkolása
-                    if (gArticles.count() <= 400)
+                    if (gArticles.count() <= 400) //random szám, ennél több cikk van, ha kevesebbet talál, biztos baj van...
                     {
                         canSave = false
                         Toast.makeText(applicationContext,"Hiba a cikkek betöltésével", Toast.LENGTH_SHORT).show()
@@ -86,7 +94,15 @@ class MainActivity : AppCompatActivity() {
         }
         else
         {
+            when (settings.theme) //a témát itt állítja be
+            {
+                ThemeType.BASE -> theme.applyStyle(R.style.AppBaseTheme_NoActionBar,true)
+                ThemeType.DARK -> theme.applyStyle(R.style.AppDarkModeTheme_NoActionBar,true)
+                ThemeType.THEME3 -> theme.applyStyle(R.style.AppThirdModeTheme_NoActionBar,true)
+                ThemeType.NEPTUN -> theme.applyStyle(R.style.AppBaseTheme_NoActionBar,true)
+            }
             setContentView(R.layout.activity_main)
+
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
 
@@ -120,9 +136,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
-
-        println("kiléptem")
         val aArticles = arrayOfNulls<Article>(gArticles.size)
         for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
         println(aArticles.size)
@@ -132,8 +145,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-
-        println("kiléptem")
         val aArticles = arrayOfNulls<Article>(gArticles.size)
         for (x in gArticles.indices) { aArticles[x] = gArticles[x] }
         println(aArticles.size)
@@ -161,11 +172,15 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
+enum class ThemeType {
+    BASE, DARK, THEME3, NEPTUN
+}
+
 data class Settings(
     var allNot: Boolean = true,
     var arNot: Boolean = true,         //cikk értesítések on/off
     //egyéb értesítések ide...
-
+    var theme: ThemeType = ThemeType.BASE,
     var checkBoxArray: BooleanArray, //az összes checkbox egyben
     //egyéb szűrő pontok ide
 
@@ -181,6 +196,7 @@ data class Settings(
         if (arNot != other.arNot) return false
         if (!checkBoxArray.contentEquals(other.checkBoxArray)) return false
         if (arNum != other.arNum) return false
+        if (theme != other.theme) return false
 
         return true
     }
@@ -190,6 +206,7 @@ data class Settings(
         result = 31 * result + arNot.hashCode()
         result = 31 * result + checkBoxArray.contentHashCode()
         result = 31 * result + arNum
+        result = 31 * result + theme.hashCode()
         return result
     }
 }
